@@ -14,16 +14,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/crawler")
 public class CrawlerController {
-    @Autowired
-    private CityService cityService;
 
     @Autowired
     private CrawlerService crawlerService;
 
-    @RequestMapping("/getCities")
-    public List<City> getCities(){
-        List<City> allCities = cityService.getAllCities();
-        return allCities;
+    @RequestMapping("/getCitiesData")
+    public String getCitiesData(){
+        String citiesData = crawlerService.getCitiesData();
+        return citiesData;
     }
 
     @RequestMapping("/getSubwayData")

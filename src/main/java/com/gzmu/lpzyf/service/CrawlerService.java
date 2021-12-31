@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CrawlerService {
     String getSubwayData();
+    String getCitiesData();
 }

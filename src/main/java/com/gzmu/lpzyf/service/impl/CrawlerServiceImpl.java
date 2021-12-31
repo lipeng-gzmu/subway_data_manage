@@ -4,6 +4,7 @@ import com.gzmu.lpzyf.bean.City;
 import com.gzmu.lpzyf.bean.Line_Station;
 import com.gzmu.lpzyf.bean.MetroLine;
 import com.gzmu.lpzyf.bean.MetroStation;
+import com.gzmu.lpzyf.crawler.CrawlerCity;
 import com.gzmu.lpzyf.crawler.CrawlerGetSubwayData;
 import com.gzmu.lpzyf.mapper.CityMapper;
 import com.gzmu.lpzyf.mapper.Line_StationMapper;
@@ -32,6 +33,8 @@ public class CrawlerServiceImpl implements CrawlerService {
     private MetroLineMapper metroLineMapper;
     @Autowired
     private CrawlerGetSubwayData crawlerGetSubwayData;
+    @Autowired
+    private CrawlerCity crawlerCity;
 
     @Transactional
     @Override
@@ -62,5 +65,18 @@ public class CrawlerServiceImpl implements CrawlerService {
             logger.info("正在导入站点与线路关联关系到数据库"+(lineStationIndex++)+"/"+line_stations.size());
         }
         return "插入数据成功";
+    }
+
+    @Transactional
+    @Override
+    public String getCitiesData() {
+        List<City> cites = crawlerCity.getCites();
+        logger.info("爬取城市数据完成");
+        int status = 1;
+        for (City city : cites) {
+            cityMapper.insert(city);
+            logger.info("正在导入城市数据到数据库："+(status++)+"/"+cites.size());
+        }
+        return "导入数据成功";
     }
 }
