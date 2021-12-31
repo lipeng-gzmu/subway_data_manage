@@ -16,4 +16,7 @@ public class SubwayStation {
     private String sp;
     //经纬度
     private String sl;
+
+    //站点ids
+    private String r;
 }

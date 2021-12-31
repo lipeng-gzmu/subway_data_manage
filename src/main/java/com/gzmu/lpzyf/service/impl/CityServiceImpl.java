@@ -19,13 +19,4 @@ public class CityServiceImpl implements CityService {
         return cityMapper.findAll();
     }
 
-    @Transactional
-    @Override
-    public void insert() {
-        List<City> cites = CrawlerCity.getCites();
-        for (City city : cites) {
-            cityMapper.insert(city);
-        }
-
-    }
 }

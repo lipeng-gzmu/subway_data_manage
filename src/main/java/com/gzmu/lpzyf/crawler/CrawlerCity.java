@@ -11,14 +11,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+@Component
 public class CrawlerCity {
 
-    public static List<City> getCites(){
+    public  List<City> getCites(){
         List<City> result = new LinkedList<>();
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet("http://map.amap.com/subway/index.html");
