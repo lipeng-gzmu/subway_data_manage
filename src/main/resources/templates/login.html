@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <span th:if="${msg != null}" th:text="${msg}" ></span>
-    <form action="/login" method="post">
-        <input name="phone" type="text"/><br/>
-        <input name="password" type="password"/><br/>
-        <input type="submit" value="登录"/>
-
-    </form>
+<span th:if="${msg!=null}" th:text="${msg}"></span>
+<form action="/login" method="post">
+    <input type="text" name="phone" /><br/>
+    <input type="password" name="password"/><br/>
+    <input type="submit" value="登录"/><br/>
+    <a href="/register">立即注册</a>
+</form>
 </body>
 </html>

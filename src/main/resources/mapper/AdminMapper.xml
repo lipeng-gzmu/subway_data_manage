@@ -6,4 +6,8 @@
         select * from admin where phone=#{phone}
     </select>
 
+    <insert id="insert">
+        insert into admin values(#{phone},#{name},#{password},#{createTime})
+    </insert>
+
 </mapper>
