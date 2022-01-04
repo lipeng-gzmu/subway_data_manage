@@ -39,12 +39,9 @@ public class LoginController {
 
     @RequestMapping("/register")
     public String register(Admin admin,RedirectAttributesModelMap modelMap){
-        if (admin.getPhone()==null){
-            return "register";
-        }else{
             adminService.insert(admin);
             modelMap.addFlashAttribute("msg","注册成功，请登录");
             return "redirect:/login";
-        }
+
     }
 }
