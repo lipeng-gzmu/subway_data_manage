@@ -33,7 +33,7 @@ public class LoginController {
                 //model.addAttribute("username",findAdmin.getName());
                 request.getSession().setAttribute("username",findAdmin.getName());
                 request.getSession().setAttribute("phone",findAdmin.getPhone());
-                return "redirect:/index";
+                return "index";
             }
         }
     }
