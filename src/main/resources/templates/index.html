@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,11 +29,11 @@
 
 <!-- header -->
 <header>
-    <div class="container">
-        <!-- nav -->
+    <!--<div class="container">
+        &lt;!&ndash; nav &ndash;&gt;
         <nav class="py-md-4 py-3 d-lg-flex">
             <div id="logo">
-                <h1> <a href="index.html">Commute</a></h1>
+                <span>用户信息：李鹏</span>
             </div>
             <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
             <input type="checkbox" id="drop" />
@@ -41,12 +41,12 @@
                 <li class=""><a href="index.html">首页</a></li>
                 <li class=""><a href="about.html">地铁查询</a></li>
                 <li class=""><a href="services.html">地铁网图</a></li>
-                <li class=""><a href="gallery.html">注册</a></li>
                 <li class=""><a href="contact.html">退出</a></li>
             </ul>
         </nav>
-        <!-- //nav -->
-    </div>
+        &lt;!&ndash; //nav &ndash;&gt;
+    </div>-->
+    <div th:replace="top.html :: top"></div>
 </header>
 <!-- //header -->
 
@@ -83,9 +83,7 @@
 <!-- //ab -->
 
 <!-- copyright -->
-<div class="copy-right text-center">
-    <p>Copyright &copy; 2019.Company name All rights reserved.</p>
-</div>
+<div th:replace="bottom.html :: bottom "></div>
 <!-- //copyright -->
 
 
@@ -97,9 +95,5 @@
 <style>
     .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 </style>
-<div class="copyrights">
-    Collect from <a href="http://www.cssmoban.com/"  title="网站模板">模板之家</a>
-    <a href="https://www.chazidian.com/"  title="查字典">查字典</a>
-</div>
 </body>
 </html>
