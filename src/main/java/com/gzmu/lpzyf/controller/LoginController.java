@@ -30,9 +30,10 @@ public class LoginController {
                 modelMap.addFlashAttribute("msg","密码错误");
                 return "redirect:/login";
             }else{
-                model.addAttribute("username",findAdmin.getName());
+                //model.addAttribute("username",findAdmin.getName());
+                request.getSession().setAttribute("username",findAdmin.getName());
                 request.getSession().setAttribute("phone",findAdmin.getPhone());
-                return "index";
+                return "redirect:/index";
             }
         }
     }
@@ -43,5 +44,12 @@ public class LoginController {
             modelMap.addFlashAttribute("msg","注册成功，请登录");
             return "redirect:/login";
 
+    }
+
+    @RequestMapping("/logOut")
+    public String logOut(HttpServletRequest request){
+        request.getSession().removeAttribute("username");
+        request.getSession().removeAttribute("phone");
+        return "redirect:/login";
     }
 }
