@@ -11,7 +11,7 @@
 <!-- Meta tag Keywords -->
 <!-- Custom-Style-Sheet -->
 	<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-	<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/><!--style_sheet-->
+	<link href="css/style_login.css" rel="stylesheet" type="text/css" media="all"/><!--style_sheet-->
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property="" />
 	<link rel="stylesheet" href="css/font-awesome.css"> <!-- Font-Awesome_Icons-CSS -->
 <!--//Custom-Style-Sheet -->
@@ -26,19 +26,19 @@
 <div class="flexslider">
   <ul class="slides">
     <li>
-	  <img src="./img/g5.jpg" alt="image"/>
+	  <img src="./img/g5_login.jpg" alt="image"/>
     </li>
     <li>
-      <img src="./img/g2.jpg" alt="image"/>
+      <img src="./img/g2_login.jpg" alt="image"/>
     </li>
     <li>
-      <img src="./img/g3.jpg" alt="image"/>
+      <img src="./img/g3_login.jpg" alt="image"/>
     </li>
     <li>
-      <img src="./img/g4.jpg" alt="image"/>
+      <img src="./img/g4_login.jpg" alt="image"/>
     </li>
 	<li>
-      <img src="./img/g1.jpg" alt="image"/>
+      <img src="./img/g1_login.jpg" alt="image"/>
     </li>
   </ul>
 </div>
@@ -71,18 +71,18 @@
 			<form action="/login" method="post" class="login">
 				<div class="w3-user">
 					<span><i class="fa fa-user-o" aria-hidden="true"></i></span>
-					<input type="text" name="phone" placeholder="phone" required="">
+					<input type="text" name="phone" placeholder="电话号码" required="">
 				</div>
 				<div class="clear"></div>
 				<div class="w3-psw">
 					<span><i class="fa fa-key" aria-hidden="true"></i></span>
-					<input type="password" name="password" placeholder="Password" required="">
+					<input type="password" name="password" placeholder="密码" required="">
 				</div>
 				<div class="clear"></div>
-				<div class="w3l-check">
+				<!--<div class="w3l-check">
 					<input type="checkbox" class="checkbox">
 					<span><a href="#">forgot password ?</a></span>  
-				</div>
+				</div>-->
 				<div class="clear"></div>
 				<div class="signin">
 					<input type="submit" value="登录">
@@ -100,31 +100,31 @@
 	<div class="wthree-container">
 		<div class="wthree-form bg">	
 			<div class="agileits-2">
-				<h2>sign up here</h2>
+				<h2>注册</h2>
 			</div>
 			<form action="/register" onsubmit="return check()" method="post">
 				<div class="w3-user">
 					<span><i class="fa fa-user-o" aria-hidden="true"></i></span>
-					<input type="text" name="phone" placeholder="phone" required="">
+					<input type="text" name="phone" placeholder="电话号码" required="">
 				</div>
 				<div class="clear"></div>
 				<div class="w3-email">
 					<span><i class="fa fa-envelope" aria-hidden="true"></i></span>
-					<input type="text" name="name" placeholder="name" required=""/>
+					<input type="text" name="name" placeholder="名字" required=""/>
 				</div>
 				<div class="clear"></div>
 				<div class="w3-psw">
 					<span><i class="fa fa-key" aria-hidden="true"></i></span>
-					<input class="password" type="password" name="password" placeholder="Password" required="">
+					<input class="password" type="password" name="password" placeholder="密码" required="">
 				</div>
 				<div class="w3-cpsw">
 					<span><i class="fa fa-key" aria-hidden="true"></i></span>
-					<input class="rePassword" type="password" name="rePassword" placeholder="confirm-Password" required="">
+					<input class="rePassword" type="password" name="rePassword" placeholder="确认密码" required="">
 				</div>
 				<div class="clear"></div>
 				<div class="w3l-check">
 					<input type="checkbox" class="checkbox">
-					<span><a href="#">i agree terms and conditions</a></span>  
+					<span><a href="#">同意条款和条件</a></span>
 				</div>
 				<div class="clear"></div>
 				<div class="signin">
