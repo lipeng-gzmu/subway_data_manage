@@ -3,7 +3,6 @@ package com.gzmu.lpzyf.service.impl;
 import com.gzmu.lpzyf.bean.Admin;
 import com.gzmu.lpzyf.mapper.AdminMapper;
 import com.gzmu.lpzyf.service.AdminService;
-import com.gzmu.lpzyf.util.Jindu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;

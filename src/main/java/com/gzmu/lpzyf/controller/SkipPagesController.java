@@ -9,4 +9,9 @@ public class SkipPagesController {
     public String skipIndex(){
         return "index";
     }
+
+    @RequestMapping("/getData")
+    public String skipData(){
+        return "SpeedOfProgress";
+    }
 }

@@ -18,9 +18,12 @@ public class LoginController {
     private AdminService adminService;
     @RequestMapping("/login")
     public String skipLogin(Admin admin, RedirectAttributesModelMap modelMap, Model model, HttpServletRequest request,HttpServletResponse response){
-        if (admin.getPhone()==null){
+        if (request.getSession().getAttribute("username")!=null){
+            return "index";
+        }else if(admin.getPhone()==null){
             return "login";
-        }else{
+        }
+        else{
             Admin findAdmin = adminService.findByPhone(admin.getPhone());
             String password = DigestUtils.md5DigestAsHex(admin.getPassword().getBytes());
             if(findAdmin==null){

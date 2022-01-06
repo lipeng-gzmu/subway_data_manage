@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.5.1.min.js"></script>
+</head>
+<style>
+    .speed-parent{
+        display: none;
+        width: 400px;
+        height: 30px;
+        background: gray;
+        border-radius: 30px;
+    }
+    .speed{
+        border: 0px;
+        border-radius: 30px;
+        background: green;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        width: 0%;
+    }
+</style>
+<body>
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th width="30%">id</th>
+            <th width="20%">线路名</th>
+            <th width="30%">线路全名</th>
+            <th width="5%">城市</th>
+        </tr>
+        <tbody class="subwayData"></tbody>
+    </table>
+    <div>
+        <div class="speed-parent">
+            <div class="speed"></div>
+        </div>
+    </div>
+ <button class="crawlerData">爬取数据</button>
+<button class="speedOfData">导入数据</button>
+</body>
+<script type="text/javascript">
+    $(".crawlerData").click(function () {
+        $(".subwayData").html("");
+        $.ajax({
+            beforeSend:function(){
+              $(".crawlerData").text("爬取中...")
+            },
+            url:"/crawler/getSubwayData",
+            method: "post",
+            success:function (result) {
+                var html;
+                var lines = result.metroLines
+                for(var i=0;i<lines.length;i++){
+                    html+="<tr><td>"+lines[i].id+"</td><td>"+lines[i].metroName+"</td><td>"+lines[i].metroNameAll+"</td><td>"+lines[i].city.nameCn+"</td></tr>"
+                }
+                $(".subwayData").html(html)
+                $(".crawlerData").text("爬取数据")
+            }
+        })
+    })
+    $(".startInsert").click(function () {
+
+    })
+    var timeId;
+    function findSpeed(){
+        $.ajax({
+            url:"/crawler/SpeedOfData",
+            method: "post",
+            data:[],
+            success:function (result) {
+                if (result>=100){
+                    $(".speed").text("导入完成")
+                    $(".speed-parent").fadeOut("slow")
+                    clearInterval(timeId);
+                }else if(result<0){
+                    $(".speed").css("width","100%");
+                    $(".speed").css("background","red")
+                    $(".speed").text("导入失败，等待用户超时")
+                    $(".speed-parent").fadeOut("slow")
+                    clearInterval(timeId);
+                }
+                $(".speed").css("width",result+"%","background","green");
+            }
+        })
+
+    }
+   $(".speedOfData").click(function () {
+       $.ajax({
+           url:"/crawler/insertData",
+           method:"get"
+       })
+       clearInterval(timeId)
+       timeId=null;
+       $(".speed-parent").css("display","block");
+       $(".speed").text("")
+       timeId = setInterval(findSpeed,1000)
+   })
+</script>
+</html>
