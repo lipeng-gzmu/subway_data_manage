@@ -4,5 +4,6 @@
 <mapper namespace="com.gzmu.lpzyf.mapper.MetroLineMapper">
     <insert id="insert">
         insert into metro_line values(#{id},#{metroName},#{metroNameAll},#{city.id})
+         on duplicate key update metro_name=#{metroName},metro_name_all=#{metroNameAll},city_id=#{city.id}
     </insert>
 </mapper>

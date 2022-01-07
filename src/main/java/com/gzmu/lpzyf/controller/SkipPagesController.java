@@ -14,4 +14,9 @@ public class SkipPagesController {
     public String skipData(){
         return "SpeedOfProgress";
     }
+
+    @RequestMapping("/network")
+    public String skipNetword(){
+        return "network";
+    }
 }

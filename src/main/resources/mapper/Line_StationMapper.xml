@@ -4,6 +4,7 @@
 <mapper namespace="com.gzmu.lpzyf.mapper.Line_StationMapper">
 <insert id="insert">
     insert into line_station values(null,#{lineId},#{stationId})
+    on duplicate key update line_id=#{lineId},station_id=#{stationId}
 </insert>
 
 </mapper>

@@ -39,7 +39,7 @@ public class CrawlerServiceImpl implements CrawlerService {
     @Autowired
     private CrawlerCity crawlerCity;
 
-    @Transactional
+
     @Override
     public Map<String,List> getSubwayData() {
         Map<String,List> resultMap = new HashMap<>();
@@ -51,6 +51,7 @@ public class CrawlerServiceImpl implements CrawlerService {
         List<Line_Station> line_stations = subwayData.get("line_station");
         int sum = metroLines.size();
         new Thread(new Runnable() {
+            @Transactional
             @Override
             public void run() {
                 synchronized (SpeedOfProgress.suwayCheck){

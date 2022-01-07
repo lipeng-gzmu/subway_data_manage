@@ -5,6 +5,8 @@
     <insert id="insert">
         insert ignore into metro_station
         values(#{id},#{name},#{nameEn},#{longitude},#{latitude})
+        on duplicate key update ~name~=#{name},name_en=#{nameEn},longitude=#{longitude}
+          ,latitude=#{latitude}
     </insert>
 
 </mapper>
