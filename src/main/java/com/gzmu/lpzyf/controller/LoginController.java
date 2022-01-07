@@ -34,8 +34,13 @@ public class LoginController {
                 return "redirect:/login";
             }else{
                 //model.addAttribute("username",findAdmin.getName());
+                //对电话进行处理
+                String phone = findAdmin.getPhone();
+                String sub1 = phone.substring(0,3);
+                String sub2 = phone.substring(7,11);
+                phone = sub1 +"***"+sub2;
                 request.getSession().setAttribute("username",findAdmin.getName());
-                request.getSession().setAttribute("phone",findAdmin.getPhone());
+                request.getSession().setAttribute("phone",phone);
                 return "index";
             }
         }

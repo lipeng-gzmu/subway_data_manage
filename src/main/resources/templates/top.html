@@ -8,8 +8,10 @@
 <div class="container" th:fragment="top">
     <!-- nav -->
     <nav class="py-md-4 py-3 d-lg-flex">
-        <div id="logo">
-            <span th:text="${'用户信息:'+session.username}"></span>
+        <br id="logo">
+        <div style="color: #0b0b0b">
+            <p><span th:text="${'用户信息:'+session.username}"></span></p>
+            <p><span th:text="${'电话:'+session.phone}"></span></p>
         </div>
         <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
         <input type="checkbox" id="drop" />
