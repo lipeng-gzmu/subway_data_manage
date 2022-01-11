@@ -35,6 +35,7 @@ public class CrawlerGetSubwayData {
         for (City city : allCities) {
             Date timestamp = new Date();
             httpGet = new HttpGet("http://map.amap.com/service/subway?_"+timestamp.getTime()+"&srhdata="+city.getId()+"_drw_"+city.getNameEn()+".json");
+            httpGet.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0");
             try {
                 CloseableHttpResponse response = httpClient.execute(httpGet);
                 if (response.getStatusLine().getStatusCode()==200){

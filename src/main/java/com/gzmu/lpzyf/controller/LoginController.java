@@ -2,6 +2,9 @@ package com.gzmu.lpzyf.controller;
 
 import com.gzmu.lpzyf.bean.Admin;
 import com.gzmu.lpzyf.service.AdminService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,12 +15,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 @Controller
 public class LoginController {
     @Autowired
     private AdminService adminService;
     @RequestMapping("/login")
     public String skipLogin(Admin admin, RedirectAttributesModelMap modelMap, Model model, HttpServletRequest request,HttpServletResponse response){
+        String remoteAddr = request.getRemoteAddr();
+        String remoteUser = request.getRemoteUser();
+        String remoteHost = request.getRemoteHost();
+        int remotePort = request.getRemotePort();
         if (request.getSession().getAttribute("username")!=null){
             return "index";
         }else if(admin.getPhone()==null){
@@ -31,6 +39,8 @@ public class LoginController {
                 return "redirect:/login";
             }else if(!findAdmin.getPassword().equals(password)){
                 modelMap.addFlashAttribute("msg","密码错误");
+
+                log.warn("ip:["+remoteAddr+"]"+",user:["+remoteUser+"]Host:["+remoteHost+"]port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Fail]");
                 return "redirect:/login";
             }else{
                 //model.addAttribute("username",findAdmin.getName());
@@ -38,9 +48,10 @@ public class LoginController {
                 String phone = findAdmin.getPhone();
                 String sub1 = phone.substring(0,3);
                 String sub2 = phone.substring(7,11);
-                phone = sub1 +"***"+sub2;
+                phone = sub1 +"****"+sub2;
                 request.getSession().setAttribute("username",findAdmin.getName());
                 request.getSession().setAttribute("phone",phone);
+                log.info("ip:["+remoteAddr+"]"+",user:["+remoteUser+"]Host:["+remoteHost+"]port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Success]");
                 return "index";
             }
         }
