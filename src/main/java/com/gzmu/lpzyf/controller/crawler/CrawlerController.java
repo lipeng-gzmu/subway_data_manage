@@ -28,8 +28,8 @@ public class CrawlerController {
     }
 
     @RequestMapping("/getSubwayData")
-    public Map<String,List> getSubwayData(){
-        Map<String, List> subwayData = crawlerService.getSubwayData();
+    public Map<String,List> getSubwayData(String type){
+        Map<String, List> subwayData = crawlerService.getSubwayData(type);
         return subwayData;
     }
 

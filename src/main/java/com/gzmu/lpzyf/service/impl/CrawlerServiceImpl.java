@@ -40,15 +40,57 @@ public class CrawlerServiceImpl implements CrawlerService {
 
 
     @Override
-    public Map<String,List> getSubwayData() {
+    public Map<String,List> getSubwayData(String type) {
         Map<String,List> resultMap = new HashMap<>();
         List<City> allCities = cityMapper.findAll();
         Map<String, List> subwayData = crawlerGetSubwayData.getSubwayData(allCities);
-        logger.info("数据爬取完成，正在导入数据库");
         List<MetroLine> metroLines = subwayData.get("metroLines");
         List<MetroStation> metroStations = subwayData.get("metroStations");
         List<Line_Station> line_stations = subwayData.get("line_station");
-        int sum = metroLines.size();
+        logger.info("数据爬取完成，正在导入数据库");
+        int sum = metroLines.size()+metroStations.size()+line_stations.size();
+            new Thread(new Runnable() {
+                @Transactional
+                @Override
+                public void run() {
+                    synchronized (SpeedOfProgress.suwayCheck){
+                        try {
+                            SpeedOfProgress.suwayInsertProgressCheck=false;
+                            SpeedOfProgress.suwayCheck.wait(10000);
+                            if (!SpeedOfProgress.suwayInsertProgressCheck){
+                                SpeedOfProgress.suwayInsertProgress=-1.0;
+                                logger.info("等待超时，放弃插入数据");
+                                return;
+                            }else {
+                                SpeedOfProgress.suwayInsertProgress=0.0;
+                                for(int i=0;i<metroLines.size();i++){
+                                    metroLineMapper.insert(metroLines.get(i));
+                                    SpeedOfProgress.suwayInsertProgress=((i+1)*1.0/sum)*100;
+                                    System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
+                                    logger.info("正在导入地铁线路数据到数据库:"+(i+1)+"/"+sum);
+                                }
+                                for(int i=0;i<metroStations.size();i++){
+                                    metroStationMapper.insert(metroStations.get(i));
+                                    SpeedOfProgress.suwayInsertProgress=((i+1+metroLines.size())*1.0/sum)*100;
+                                    System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
+                                    logger.info("正在导入地铁线路数据到数据库:"+(i+1+metroLines.size())+"/"+sum);
+                                }
+                                for(int i=0;i<line_stations.size();i++){
+                                    line_stationMapper.insert(line_stations.get(i));
+                                    SpeedOfProgress.suwayInsertProgress=((i+1+metroStations.size()+metroLines.size())*1.0/sum)*100;
+                                    System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
+                                    logger.info("正在导入地铁线路数据到数据库:"+(i+1+metroStations.size()+metroLines.size())+"/"+sum);
+                                }
+                                return;
+                            }
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }).start();
         new Thread(new Runnable() {
             @Transactional
             @Override
@@ -66,9 +108,22 @@ public class CrawlerServiceImpl implements CrawlerService {
                             for(int i=0;i<metroLines.size();i++){
                                 metroLineMapper.insert(metroLines.get(i));
                                 SpeedOfProgress.suwayInsertProgress=((i+1)*1.0/sum)*100;
-                                System.out.println(SpeedOfProgress.suwayInsertProgress);
-                                logger.info("正在导入地铁线路数据到数据库:"+(i+1)+"/"+metroLines.size());
+                                System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
+                                logger.info("正在导入地铁线路数据到数据库:"+(i+1)+"/"+sum);
                             }
+                            for(int i=0;i<metroStations.size();i++){
+                                metroStationMapper.insert(metroStations.get(i));
+                                SpeedOfProgress.suwayInsertProgress=((i+1+metroLines.size())*1.0/sum)*100;
+                                System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
+                                logger.info("正在导入地铁线路数据到数据库:"+(i+1+metroLines.size())+"/"+sum);
+                            }
+                            for(int i=0;i<line_stations.size();i++){
+                                line_stationMapper.insert(line_stations.get(i));
+                                SpeedOfProgress.suwayInsertProgress=((i+1+metroStations.size()+metroLines.size())*1.0/sum)*100;
+                                System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
+                                logger.info("正在导入地铁线路数据到数据库:"+(i+1+metroStations.size()+metroLines.size())+"/"+sum);
+                            }
+                            return;
                         }
 
                     } catch (InterruptedException e) {
@@ -78,21 +133,12 @@ public class CrawlerServiceImpl implements CrawlerService {
                 }
             }
         }).start();
+            return subwayData;
+    }
 
-
-       /* int stationIndex=1;
-        for (MetroStation metroStation : metroStations) {
-            //System.out.println(metroStation);
-            metroStationMapper.insert(metroStation);
-            logger.info("正在导入站点数据到数据库："+(stationIndex++)+"/"+metroStations.size());
-        }
-        int lineStationIndex = 1;
-        for (Line_Station line_station : line_stations) {
-            //System.out.println(line_station);
-            line_stationMapper.insert(line_station);
-            logger.info("正在导入站点与线路关联关系到数据库"+(lineStationIndex++)+"/"+line_stations.size());
-        }*/
-        return subwayData;
+    @Override
+    public Map<String, List> getStationData() {
+        return null;
     }
 
     @Transactional

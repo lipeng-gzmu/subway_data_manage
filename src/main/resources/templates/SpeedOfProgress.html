@@ -26,11 +26,15 @@
         text-align: center;
         width: 0%;
     }
-    .crawlerData,.speedOfData,.speed-parent{
+    .crawlerData,.crawlerStationData,.speedOfData,.speed-parent{
         float: left;
         margin-left: 30px;
     }
     .power{
+        float: left;
+        width: 100%;
+    }
+    .table2{
         float: left;
         width: 100%;
     }
@@ -39,53 +43,116 @@
 <header>
     <div th:replace="top.html :: top"></div>
 </header>
-<section  class="services py-5" id="services">
+<section  class="services py-5" id="services" >
 
-       <div class="container py-lg-5 py-3">
+       <div class="container py-lg-5 py-3" style="height: 650px;">
            <div class="power">
                <button class="crawlerData">爬取数据</button>
+               <button look="1" class="crawlerStationData" id="line">线路</button>
+               <button look="2" class="crawlerStationData" id="station">站点</button>
                <button class="speedOfData">导入数据</button>
                <div class="speed-parent">
                    <div class="speed"></div>
                </div>
            </div>
-           <table cellpadding="0" cellspacing="0">
-               <tr>
-                   <th width="30%">id</th>
-                   <th width="20%">线路名</th>
-                   <th width="30%">线路全名</th>
-                   <th width="5%">城市</th>
-               </tr>
-               <tbody class="subwayData"></tbody>
-           </table>
+           <div class="table2" style="height: 100%;overflow:scroll;overflow-x:hidden;overflow-y: hidden;">
+                   <table class="table-hover table-bordered" cellpadding="0" cellspacing="0"  >
+                       <tbody class="table-th"></tbody>
+                       <tbody class="subwayData"></tbody>
+                   </table>
+           </div>
+
        </div>
 
 </section>
-
+<div th:replace="bottom.html :: bottom "></div>
 </body>
 <script type="text/javascript">
-    $(".crawlerData").click(function () {
+    $(".crawlerStationData").hide();
+    $(".speedOfData").hide()
+    $(".table2").hover(over,out)
+    function over(){
+        $(".table2").css("overflow-y","")
+    }
+    function out(){
+        $(".table2").css("overflow-y","hidden")
+    }
+    var lineHtml;
+    var thHtml="<tr >\n" +
+        "                           <th width=\"30%\">id</th>\n" +
+        "                           <th width=\"20%\">线路名</th>\n" +
+        "                           <th width=\"30%\">线路全名</th>\n" +
+        "                           <th width=\"5%\">城市</th>\n" +
+        "                       </tr>";
+    var stationHtml;
+    var stationthHtml=" <tr>\n" +
+        "                            <th width='30%'>id</th>\n" +
+        "                            <th width='20%'>站点名</th>\n" +
+        "                            <th width='20%'>英文名</th>\n" +
+        "                            <th width='15%'>纬度</th>\n" +
+        "                            <th width='15%'>经度</th>\n" +
+        "                        </tr>";
+    $(".crawlerStationData").click(function (e) {
+        var val = $(e.target).attr("look");
+        if (val==="1"){
+            $(".table-th").html(thHtml);
+            $(".subwayData").html(lineHtml);
+        }else{
+            $(".table-th").html(stationthHtml);
+            $(".subwayData").html(stationHtml);
+        }
+    })
+    $(".crawlerData").click(function (e) {
+        var clickType;
+        if ($(e.target).text()==="爬取数据") {
+            clickType="getLines"
+        }else {
+            clickType="getStations";
+        }
         $(".subwayData").html("");
         $.ajax({
             beforeSend:function(){
-              $(".crawlerData").text("爬取中...")
+              $(e.target).text("爬取中...")
             },
             url:"/crawler/getSubwayData",
+            data:{"type":clickType},
             method: "post",
             success:function (result) {
-                var html;
                 var lines = result.metroLines
-                for(var i=0;i<lines.length;i++){
-                    html+="<tr><td>"+lines[i].id+"</td><td>"+lines[i].metroName+"</td><td>"+lines[i].metroNameAll+"</td><td>"+lines[i].city.nameCn+"</td></tr>"
-                }
-                $(".subwayData").html(html)
+                var stations = result.metroStations;
+                getLines(lines)
+                getStations(stations);
+                $("#line").text("线路("+lines.length+")")
+                $("#station").text("站点("+stations.length+")")
+                $(".crawlerStationData").toggle();
+                $(".table-th").html(thHtml);
+                $(".subwayData").html(lineHtml);
                 $(".crawlerData").text("爬取数据")
+                $(".speedOfData").toggle()
+                timeSet()
             }
         })
     })
-    $(".startInsert").click(function () {
-
-    })
+    function timeSet(){
+        var time = 1800;
+        setInterval(function () {
+            time = time -1;
+            var minite = parseInt(time/60);
+            var second = parseInt(time%60);
+            $(".speedOfData").text("导入数据("+minite+":"+second+")")
+        },1000)
+    }
+    function getLines(lines) {
+        for(var i=0;i<lines.length;i++){
+            lineHtml+="<tr><td>"+lines[i].id+"</td><td>"+lines[i].metroName+"</td><td>"+lines[i].metroNameAll+"</td><td>"+lines[i].city.nameCn+"</td></tr>"
+        }
+    }
+    function getStations(stations) {
+        for (var i = 0;i<stations.length;i++){
+            stationHtml += "<tr><td>"+stations[i].id+"</td><td>"+stations[i].name+"</td><td>"+
+                stations[i].nameEn+"</td><td>"+stations[i].longitude+"</td><td>"+stations[i].latitude+"</td></tr>"
+        }
+    }
     var timeId;
     function findSpeed(){
         $.ajax({
@@ -95,12 +162,14 @@
             success:function (result) {
                 if (result>=100){
                     $(".speed").text("导入完成")
+                    $(".speedOfData").toggle()
                     $(".speed-parent").fadeOut("slow")
                     clearInterval(timeId);
                 }else if(result<0){
                    /* $(".speed").css({"width":"100%","background":"red"});
                     $(".speed").text("导入失败，等待用户超时")*/
                    alert("导入失败，等待用户超时")
+                    $(".speedOfData").toggle()
                     $(".speed-parent").css("display","none")
                     clearInterval(timeId);
                 }

@@ -12,6 +12,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,7 +41,8 @@ public class LoginController {
             }else if(!findAdmin.getPassword().equals(password)){
                 modelMap.addFlashAttribute("msg","密码错误");
 
-                log.warn("ip:["+remoteAddr+"]"+",user:["+remoteUser+"]Host:["+remoteHost+"]port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Fail]");
+                log.warn("ip:["+remoteAddr+"]"+",user:["+remoteUser+"]Host:["+remoteHost+"]" +
+                        "port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Fail]type:[login]");
                 return "redirect:/login";
             }else{
                 //model.addAttribute("username",findAdmin.getName());
@@ -51,15 +53,22 @@ public class LoginController {
                 phone = sub1 +"****"+sub2;
                 request.getSession().setAttribute("username",findAdmin.getName());
                 request.getSession().setAttribute("phone",phone);
-                log.info("ip:["+remoteAddr+"]"+",user:["+remoteUser+"]Host:["+remoteHost+"]port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Success]");
+                log.info("ip:["+remoteAddr+"]"+ ",user:["+remoteUser+"]Host:["+remoteHost+"]" +
+                        "port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Success]type:[login]");
                 return "index";
             }
         }
     }
 
     @RequestMapping("/register")
-    public String register(Admin admin,RedirectAttributesModelMap modelMap){
+    public String register(Admin admin, RedirectAttributesModelMap modelMap, HttpServletRequest request){
+             String remoteAddr = request.getRemoteAddr();
+             String remoteUser = request.getRemoteUser();
+             String remoteHost = request.getRemoteHost();
+             int remotePort = request.getRemotePort();
             adminService.insert(admin);
+           log.info("ip:["+remoteAddr+"]"+ ",user:["+remoteUser+"]Host:["+remoteHost+"]" +
+                "port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[register Success]type:[register]");
             modelMap.addFlashAttribute("msg","注册成功，请登录");
             return "redirect:/login";
 
