@@ -91,48 +91,7 @@ public class CrawlerServiceImpl implements CrawlerService {
                     }
                 }
             }).start();
-        new Thread(new Runnable() {
-            @Transactional
-            @Override
-            public void run() {
-                synchronized (SpeedOfProgress.suwayCheck){
-                    try {
-                        SpeedOfProgress.suwayInsertProgressCheck=false;
-                        SpeedOfProgress.suwayCheck.wait(10000);
-                        if (!SpeedOfProgress.suwayInsertProgressCheck){
-                            SpeedOfProgress.suwayInsertProgress=-1.0;
-                            logger.info("等待超时，放弃插入数据");
-                            return;
-                        }else {
-                            SpeedOfProgress.suwayInsertProgress=0.0;
-                            for(int i=0;i<metroLines.size();i++){
-                                metroLineMapper.insert(metroLines.get(i));
-                                SpeedOfProgress.suwayInsertProgress=((i+1)*1.0/sum)*100;
-                                System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
-                                logger.info("正在导入地铁线路数据到数据库:"+(i+1)+"/"+sum);
-                            }
-                            for(int i=0;i<metroStations.size();i++){
-                                metroStationMapper.insert(metroStations.get(i));
-                                SpeedOfProgress.suwayInsertProgress=((i+1+metroLines.size())*1.0/sum)*100;
-                                System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
-                                logger.info("正在导入地铁线路数据到数据库:"+(i+1+metroLines.size())+"/"+sum);
-                            }
-                            for(int i=0;i<line_stations.size();i++){
-                                line_stationMapper.insert(line_stations.get(i));
-                                SpeedOfProgress.suwayInsertProgress=((i+1+metroStations.size()+metroLines.size())*1.0/sum)*100;
-                                System.out.printf("%.2f\n",SpeedOfProgress.suwayInsertProgress);
-                                logger.info("正在导入地铁线路数据到数据库:"+(i+1+metroStations.size()+metroLines.size())+"/"+sum);
-                            }
-                            return;
-                        }
 
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-        }).start();
             return subwayData;
     }
 
