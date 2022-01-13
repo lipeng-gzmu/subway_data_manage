@@ -56,7 +56,7 @@ public class CrawlerServiceImpl implements CrawlerService {
                     synchronized (SpeedOfProgress.suwayCheck){
                         try {
                             SpeedOfProgress.suwayInsertProgressCheck=false;
-                            SpeedOfProgress.suwayCheck.wait(10000);
+                            SpeedOfProgress.suwayCheck.wait(1000*60);
                             if (!SpeedOfProgress.suwayInsertProgressCheck){
                                 SpeedOfProgress.suwayInsertProgress=-1.0;
                                 logger.info("等待超时，放弃插入数据");

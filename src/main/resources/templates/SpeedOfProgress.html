@@ -129,19 +129,9 @@
                 $(".subwayData").html(lineHtml);
                 $(".crawlerData").text("爬取数据")
                 $(".speedOfData").toggle()
-                timeSet()
             }
         })
     })
-    function timeSet(){
-        var time = 1800;
-        setInterval(function () {
-            time = time -1;
-            var minite = parseInt(time/60);
-            var second = parseInt(time%60);
-            $(".speedOfData").text("导入数据("+minite+":"+second+")")
-        },1000)
-    }
     function getLines(lines) {
         for(var i=0;i<lines.length;i++){
             lineHtml+="<tr><td>"+lines[i].id+"</td><td>"+lines[i].metroName+"</td><td>"+lines[i].metroNameAll+"</td><td>"+lines[i].city.nameCn+"</td></tr>"
