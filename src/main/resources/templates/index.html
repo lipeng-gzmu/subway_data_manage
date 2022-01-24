@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,29 +8,14 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/index.css">
-	<link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/public.css"/>
 
-    
+
 </head>
 <body>
 
 <!--header-->
-<div class="header">
-	<div class="title_header" >
-		<ul class="menu">
-			<li class=""><a href="index.html"">首页</a></li>
-			<li class=""><a href="about.html">地铁查询</a></li>
-			<li class=""><a href="services.html">地铁网图</a></li>
-			<li class=""><a href="gallery.html">注册</a></li>
-			<li class="mr-2"><a href="contact.html">退出</a></li>
-		</ul>
-	</div>
-	
-    <div class="bg_header">
-        <div class="header_nav fl t_title">
-            全国地铁数据分析与可视化
-        </div> 
-    </div>
+<div th:include="public::public">
 </div>
 
 <!--main-->
@@ -41,51 +26,51 @@
             <div class="left_1 t_btn6" style="cursor: pointer;">
                 <!--左上边框-->
                 <div class="t_line_box">
-                    <i class="t_l_line"></i> 
-                    <i class="l_t_line"></i> 
-                </div> 
+                    <i class="t_l_line"></i>
+                    <i class="l_t_line"></i>
+                </div>
                 <!--右上边框-->
                 <div class="t_line_box">
-                    <i class="t_r_line"></i> 
-                    <i class="r_t_line"></i> 
-                </div> 
+                    <i class="t_r_line"></i>
+                    <i class="r_t_line"></i>
+                </div>
                 <!--左下边框-->
                 <div class="t_line_box">
-                    <i class="l_b_line"></i> 
-                    <i class="b_l_line"></i> 
-                </div> 
-                    <!--右下边框-->
-                    <div class="t_line_box">
-                    <i class="r_b_line"></i> 
-                    <i class="b_r_line"></i> 
-                </div> 
+                    <i class="l_b_line"></i>
+                    <i class="b_l_line"></i>
+                </div>
+                <!--右下边框-->
+                <div class="t_line_box">
+                    <i class="r_b_line"></i>
+                    <i class="b_r_line"></i>
+                </div>
                 <div class="main_title">
                     <img src="img/t_1.png" alt="">
-                  湖南省货运收入
+                    湖南省货运收入
                 </div>
                 <div id="chart_1" class="chart" style="width:100%;height: 280px;"></div>
             </div>
             <div class="left_2" style="cursor: pointer;">
                 <!--左上边框-->
                 <div class="t_line_box">
-                    <i class="t_l_line"></i> 
-                    <i class="l_t_line"></i> 
-                </div> 
+                    <i class="t_l_line"></i>
+                    <i class="l_t_line"></i>
+                </div>
                 <!--右上边框-->
                 <div class="t_line_box">
-                    <i class="t_r_line"></i> 
-                    <i class="r_t_line"></i> 
-                </div> 
+                    <i class="t_r_line"></i>
+                    <i class="r_t_line"></i>
+                </div>
                 <!--左下边框-->
                 <div class="t_line_box">
-                    <i class="l_b_line"></i> 
-                    <i class="b_l_line"></i> 
-                </div> 
-                    <!--右下边框-->
-                    <div class="t_line_box">
-                    <i class="r_b_line"></i> 
-                    <i class="b_r_line"></i> 
-                </div> 
+                    <i class="l_b_line"></i>
+                    <i class="b_l_line"></i>
+                </div>
+                <!--右下边框-->
+                <div class="t_line_box">
+                    <i class="r_b_line"></i>
+                    <i class="b_r_line"></i>
+                </div>
                 <div class="main_title">
                     <img src="img/t_2.png" alt="">
                     湖南省地图
@@ -97,24 +82,24 @@
             <div class="center_text">
                 <!--左上边框-->
                 <div class="t_line_box">
-                    <i class="t_l_line"></i> 
-                    <i class="l_t_line"></i> 
-                </div> 
+                    <i class="t_l_line"></i>
+                    <i class="l_t_line"></i>
+                </div>
                 <!--右上边框-->
                 <div class="t_line_box">
-                    <i class="t_r_line"></i> 
-                    <i class="r_t_line"></i> 
-                </div> 
+                    <i class="t_r_line"></i>
+                    <i class="r_t_line"></i>
+                </div>
                 <!--左下边框-->
                 <div class="t_line_box">
-                    <i class="l_b_line"></i> 
-                    <i class="b_l_line"></i> 
-                </div> 
-                 <!--右下边框-->
-                 <div class="t_line_box">
-                    <i class="r_b_line"></i> 
-                    <i class="b_r_line"></i> 
-                </div> 
+                    <i class="l_b_line"></i>
+                    <i class="b_l_line"></i>
+                </div>
+                <!--右下边框-->
+                <div class="t_line_box">
+                    <i class="r_b_line"></i>
+                    <i class="b_r_line"></i>
+                </div>
                 <div class="main_title">
                     <img src="img/t_3.png" alt="">
                     中国地图
@@ -126,24 +111,24 @@
             <div class="right_1">
                 <!--左上边框-->
                 <div class="t_line_box">
-                    <i class="t_l_line"></i> 
-                    <i class="l_t_line"></i> 
-                </div> 
+                    <i class="t_l_line"></i>
+                    <i class="l_t_line"></i>
+                </div>
                 <!--右上边框-->
                 <div class="t_line_box">
-                    <i class="t_r_line"></i> 
-                    <i class="r_t_line"></i> 
-                </div> 
+                    <i class="t_r_line"></i>
+                    <i class="r_t_line"></i>
+                </div>
                 <!--左下边框-->
                 <div class="t_line_box">
-                    <i class="l_b_line"></i> 
-                    <i class="b_l_line"></i> 
-                </div> 
-                    <!--右下边框-->
-                    <div class="t_line_box">
-                    <i class="r_b_line"></i> 
-                    <i class="b_r_line"></i> 
-                </div> 
+                    <i class="l_b_line"></i>
+                    <i class="b_l_line"></i>
+                </div>
+                <!--右下边框-->
+                <div class="t_line_box">
+                    <i class="r_b_line"></i>
+                    <i class="b_r_line"></i>
+                </div>
                 <div class="main_title">
                     <img src="img/t_4.png" alt="">
                     湖南省货物周转量
@@ -153,24 +138,24 @@
             <div class="right_2">
                 <!--左上边框-->
                 <div class="t_line_box">
-                    <i class="t_l_line"></i> 
-                    <i class="l_t_line"></i> 
-                </div> 
+                    <i class="t_l_line"></i>
+                    <i class="l_t_line"></i>
+                </div>
                 <!--右上边框-->
                 <div class="t_line_box">
-                    <i class="t_r_line"></i> 
-                    <i class="r_t_line"></i> 
-                </div> 
+                    <i class="t_r_line"></i>
+                    <i class="r_t_line"></i>
+                </div>
                 <!--左下边框-->
                 <div class="t_line_box">
-                    <i class="l_b_line"></i> 
-                    <i class="b_l_line"></i> 
-                </div> 
-                    <!--右下边框-->
-                    <div class="t_line_box">
-                    <i class="r_b_line"></i> 
-                    <i class="b_r_line"></i> 
-                </div> 
+                    <i class="l_b_line"></i>
+                    <i class="b_l_line"></i>
+                </div>
+                <!--右下边框-->
+                <div class="t_line_box">
+                    <i class="r_b_line"></i>
+                    <i class="b_r_line"></i>
+                </div>
                 <div class="main_title">
                     <img src="img/t_5.png" alt="">
                     湖南省高速公路
@@ -179,10 +164,10 @@
             </div>
         </div>
     </div>
-    
+
 </div>
 <style>
-.copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
+    .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 </style>
 
 </body>

@@ -439,3 +439,17 @@ ul li{
 	margin-left: 15px;
 	font-size: 16px;
 }
+.people_info{
+    position: relative;
+    width: 150px;
+    height: 30px;
+    margin-top: -29px;
+    float: right;
+    font-size: 14px;
+    text-align: center;
+}
+.people_info .name{
+    display: block;
+    margin-top: -6px;
+    color: #0263FF;
+}

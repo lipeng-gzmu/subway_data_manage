@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,24 +15,8 @@
 <body>
 
 <!--header-->
-<div class="header">
-	<div class="title_header" >
-		<ul class="menu">
-			<li class=""><a href="index.html"">首页</a></li>
-			<li class=""><a href="about.html">地铁查询</a></li>
-			<li class=""><a href="services.html">地铁网图</a></li>
-			<li class=""><a href="gallery.html">注册</a></li>
-			<li class="mr-2"><a href="contact.html">退出</a></li>
-		</ul>
-	</div>
-	
-    <div class="bg_header">
-        <div class="header_nav fl t_title">
-            全国地铁数据分析与可视化
-        </div> 
-    </div>
+<div th:include="public::public">
 </div>
-
 <!--main-->
 <div class="data_content">
 
