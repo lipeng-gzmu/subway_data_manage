@@ -8,276 +8,80 @@ $(function () {
     echart_map();
     echart_5();
 
-    //echart_1湖南货物收入
+    //echart_1 地铁数量top10
     function echart_1() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('chart_1'));
         option = {
             tooltip: {
-                trigger: 'item',
-                formatter: "{a} <br/>{b} : {c}万元"
-            },
-            legend: {
-                x: 'center',
-                y: '15%',
-                data: [ '张家口', '承德', '衡水','邢台', '邯郸', '保定','秦皇岛','石家庄', '唐山'],
-                icon: 'circle',
-                textStyle: {
-                    color: '#fff',
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+
                 }
             },
-            calculable: true,
-            series: [{
-                name: '',
-                type: 'pie',
-                //起始角度，支持范围[0, 360]
-                startAngle: 0,
-                //饼图的半径，数组的第一项是内半径，第二项是外半径
-                radius: [41, 100.75],
-                //支持设置成百分比，设置成百分比时第一项是相对于容器宽度，第二项是相对于容器高度
-                center: ['50%', '40%'],
-                //是否展示成南丁格尔图，通过半径区分数据大小。可选择两种模式：
-                // 'radius' 面积展现数据的百分比，半径展现数据的大小。
-                //  'area' 所有扇区面积相同，仅通过半径展现数据大小
-                roseType: 'area',
-                //是否启用防止标签重叠策略，默认开启，圆环图这个例子中需要强制所有标签放在中心位置，可以将该值设为 false。
-                avoidLabelOverlap: false,
-                label: {
-                    normal: {
-                        show: true,
-                        formatter: '{c}万元'
+            grid: {
+                left: '0',
+                right: '1%',
+                bottom: '1%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['北京', '上海', '天津', '湖南', '湖北', '河南', '河北','四川','重庆','四川'],
+                    axisTick: {
+                        alignWithLabel: true
                     },
-                    emphasis: {
-                        show: true
-                    }
-                },
-                labelLine: {
-                    normal: {
-                        show: true,
-                        length2: 1,
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#fff',//左边线的颜色
+                            width:'1'//坐标线的宽度
+                        }
                     },
-                    emphasis: {
-                        show: true
-                    }
-                },
-                data: [{
-                        value: 900.58,
-                        name: '张家口',
-                        itemStyle: {
-                            normal: {
-                                color: '#f845f1'
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#fff',//左边线的颜色
+                            width:'1'//坐标线的宽度
+                        }
+                    },
+                }
+            ],
+            series: [
+                {
+                    name: '数量',
+                    type: 'bar',
+                    barWidth: '60%',
+                    data: [120, 200, 150, 80, 70, 110, 130,120,170,100],
+                    itemStyle: {
+                        normal: {
+                            //每根柱子颜色设置
+                            color: function(params) {
+                                let colorList = [
+                                    '#FF4949',
+                                    '#FFA74D',
+                                    '#FFEA51',
+                                    '#4BF0FF',
+                                    '#44AFF0',
+                                    "#288588",
+                                    '#4E82FF',
+                                    '#584BFF',
+                                    '#BE4DFF',
+                                    '#F845F1'
+                                ];
+                                return colorList[params.dataIndex];
                             }
                         }
                     },
-                    {
-                        value: 1100.58,
-                        name: '承德',
-                        itemStyle: {
-                            normal: {
-                                color: '#ad46f3'
-                            }
-                        }
-                    },
-                    {
-                        value: 1200.58,
-                        name: '衡水',
-                        itemStyle: {
-                            normal: {
-                                color: '#5045f6'
-                            }
-                        }
-                    },
-                    {
-                        value: 1300.58,
-                        name: '邢台',
-                        itemStyle: {
-                            normal: {
-                                color: '#4777f5'
-                            }
-                        }
-                    },
-                    {
-                        value: 1400.58,
-                        name: '邯郸',
-                        itemStyle: {
-                            normal: {
-                                color: '#44aff0'
-                            }
-                        }
-                    },
-                    {
-                        value: 1500.58,
-                        name: '保定',
-                        itemStyle: {
-                            normal: {
-                                color: '#45dbf7'
-                            }
-                        }
-                    },
-                    {
-                        value: 1500.58,
-                        name: '秦皇岛',
-                        itemStyle: {
-                            normal: {
-                                color: '#f6d54a'
-                            }
-                        }
-                    },
-                    {
-                        value: 1600.58,
-                        name: '石家庄',
-                        itemStyle: {
-                            normal: {
-                                color: '#f69846'
-                            }
-                        }
-                    },
-                    {
-                        value: 1800,
-                        name: '唐山',
-                        itemStyle: {
-                            normal: {
-                                color: '#ff4343'
-                            }
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    },
-                    {
-                        value: 0,
-                        name: "",
-                        itemStyle: {
-                            normal: {
-                                color: 'transparent'
-                            }
-                        },
-                        label: {
-                            show: false
-                        },
-                        labelLine: {
-                            show: false
-                        }
-                    }
-                ]
-            }]
+                }
+            ]
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
