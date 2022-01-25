@@ -18,4 +18,6 @@ public class MetroStation {
     private String longitude;
     //站点伟度
     private String latitude;
+    //站点状态
+    private Integer stationStatus;
 }

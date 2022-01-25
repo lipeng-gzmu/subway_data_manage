@@ -35,7 +35,7 @@ public class CrawlerGetSubwayData {
         for (City city : allCities) {
             Date timestamp = new Date();
             httpGet = new HttpGet("http://map.amap.com/service/subway?_"+timestamp.getTime()+"&srhdata="+city.getId()+"_drw_"+city.getNameEn()+".json");
-            httpGet.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0");
+            httpGet.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/95.0");
             try {
                 CloseableHttpResponse response = httpClient.execute(httpGet);
                 if (response.getStatusLine().getStatusCode()==200){
@@ -49,6 +49,7 @@ public class CrawlerGetSubwayData {
                         metroLine.setId(line.getLs());
                         metroLine.setMetroName(line.getLn());
                         metroLine.setMetroNameAll(line.getKn());
+                        metroLine.setLineStatus(Integer.valueOf(line.getSu()));
                         metroLine.setCity(city);
                         metroLines.add(metroLine);
                         List<SubwayStation> stations = line.getSt();
@@ -60,6 +61,7 @@ public class CrawlerGetSubwayData {
                             String[] split = station.getSl().split(",");
                             metroStation.setLatitude(split[0]);
                             metroStation.setLongitude(split[1]);
+                            metroStation.setStationStatus(Integer.valueOf(station.getSu()));
                             metroStations.add(metroStation);
                             String[] lineIds = station.getR().split("\\|");
                             for(int i=0;i<lineIds.length;i++){

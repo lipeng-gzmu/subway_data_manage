@@ -16,6 +16,8 @@ public class MetroLine implements Serializable {
     private String metroName;
     //完整线路名
     private String metroNameAll;
+    //线路状态
+    private Integer lineStatus;
     //城市id
     private City city;
 }

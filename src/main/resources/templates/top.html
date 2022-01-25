@@ -4,15 +4,19 @@
     <meta charset="UTF-8">
     <title>全国地铁数据分析与可视化</title>
 </head>
+
 <body>
+<div></div>
 <div class="container" th:fragment="top">
+    <script src="js/jquery-3.5.1.min.js"></script>
+
     <!-- nav -->
     <nav class="py-md-4 py-3 d-lg-flex">
         <br id="logo">
         <div style="color: #0b0b0b">
-            <p><span th:text="${'用户信息:'+session.username}"></span></p>
-            <p><span th:text="${'电话:'+session.phone}"></span></p>
+            <p class="user-div-p"><span class="userShow" th:text="${'用户信息:'+session.username}"></span></p>
         </div>
+
         <label for="drop" class="toggle"><span class="fa fa-bars"></span></label>
         <input type="checkbox" id="drop" />
         <ul class="menu mt-lg-3 ml-auto">
@@ -22,8 +26,30 @@
             <li class=""><a href="/network">地铁网图</a></li>
             <li class=""><a href="/logOut">退出</a></li>
         </ul>
+
+        <div class="userInfo">
+            <span th:text="${'用户信息:'+session.username}"></span>
+            <span th:text="${'电话:'+session.phone}"></span>
+
+            <span th:text="${'创建时间:'+session.createTime}"></span>
+            <div class="buttonUser">
+                <button>修改密码</button>
+            </div>
+        </div>
     </nav>
     <!-- //nav -->
+    <script type="text/javascript">
+        $(function () {
+            $(".userInfo").hide()
+        })
+        $(".userShow,.userInfo").hover(over,out);
+        function over() {
+            $(".userInfo").show()
+        }
+        function out() {
+            $(".userInfo").hide()
+        }
+    </script>
 </div>
 </body>
 </html>

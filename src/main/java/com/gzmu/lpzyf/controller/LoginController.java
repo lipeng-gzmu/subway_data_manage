@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 
 @Slf4j
 @Controller
@@ -52,6 +53,7 @@ public class LoginController {
                 String sub2 = phone.substring(7,11);
                 phone = sub1 +"****"+sub2;
                 request.getSession().setAttribute("username",findAdmin.getName());
+                request.getSession().setAttribute("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(findAdmin.getCreateTime()));
                 request.getSession().setAttribute("phone",phone);
                 log.info("ip:["+remoteAddr+"]"+ ",user:["+remoteUser+"]Host:["+remoteHost+"]" +
                         "port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Success]type:[login]");

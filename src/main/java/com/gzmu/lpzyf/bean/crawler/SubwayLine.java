@@ -15,7 +15,8 @@ public class SubwayLine {
     //线路名
     private String ln;
     private String kn;
-
+    //线路状态
+    private String su;
     //站
     private List<SubwayStation> st;
 }

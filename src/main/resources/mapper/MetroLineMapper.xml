@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gzmu.lpzyf.mapper.MetroLineMapper">
     <insert id="insert">
-        insert into metro_line values(#{id},#{metroName},#{metroNameAll},#{city.id})
-         on duplicate key update metro_name=#{metroName},metro_name_all=#{metroNameAll},city_id=#{city.id}
+        insert into metro_line values(#{id},#{metroName},#{metroNameAll},#{lineStatus},#{city.id})
+         on duplicate key update metro_name=#{metroName},metro_name_all=#{metroNameAll},line_status=#{lineStatus},city_id=#{city.id}
     </insert>
 </mapper>
