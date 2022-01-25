@@ -44,9 +44,9 @@
 	background-color: rgba(255,255,255,0.1);
 }
 .register{
-	position: absolute;
-	margin-left: 31%;
-	bottom: 12%;
+	position: relative;
+	margin-left: 80%;
+	bottom: -40%;
 	width: 200%;
 }
 .register span{
