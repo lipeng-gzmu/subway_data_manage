@@ -62,6 +62,10 @@ public class LoginController {
         }
     }
 
+    @RequestMapping("/to_register")
+    public String to_register(){
+        return "register";
+    }
     @RequestMapping("/register")
     public String register(Admin admin, RedirectAttributesModelMap modelMap, HttpServletRequest request){
              String remoteAddr = request.getRemoteAddr();

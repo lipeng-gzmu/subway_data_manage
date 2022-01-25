@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--header-->
+    <div class="header" th:fragment="public">
+    <div class="title_header" >
+        <ul class="menu">
+            <li class=""><a href="/index">首页</a></li>
+            <li class=""><a href="about.html">地铁查询</a></li>
+            <li class=""><a href="services.html">地铁网图</a></li>
+            <li class=""><a href="/register">注册</a></li>
+            <li class="mr-2"><a href="/logOut">退出</a></li>
+        </ul>
+    </div>
+    <div class="people_info">
+        <p>
+			<span class="name">姓名：
+				<span th:text="${session.username}"></span>
+			</span>
+        </p>
+
+        <p>
+			<span class="name">电话：
+				<span th:text="${session.phone}"></span>
+			</span>
+        </p>
+    </div>
+
+    <div class="bg_header">
+        <div class="header_nav fl t_title">
+            全国地铁数据分析与可视化
+        </div>
+    </div>
+</div>
+</body>
+</html>

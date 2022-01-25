@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/login","/login/validate",
                         "/register","/css/**",
                         "/img/**","/js/**",
-                        "/fonts/**");
+                        "/fonts/**","/to_register");
     }
 
 }
