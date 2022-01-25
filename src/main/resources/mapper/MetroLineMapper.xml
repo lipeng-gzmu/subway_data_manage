@@ -6,4 +6,8 @@
         insert into metro_line values(#{id},#{metroName},#{metroNameAll},#{city.id})
          on duplicate key update metro_name=#{metroName},metro_name_all=#{metroNameAll},city_id=#{city.id}
     </insert>
+    <!--查询每个城市的地铁线路数-->
+    <select id="findLineCount" resultType="Integer">
+        SELECT count(*) from metro_line ml where city_id =#{city_id}
+    </select>
 </mapper>
