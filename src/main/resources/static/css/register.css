@@ -43,11 +43,11 @@
 }
 .back{
 	float: right;
+	position: relative;
 	font-size: 1.375rem;
-	width: 10%;
+	width: 20%;
 	height: 5%;
-	margin-left: 60%;
-	margin-top: 18%;
+	top:20%;
 	color: white;
 }
 

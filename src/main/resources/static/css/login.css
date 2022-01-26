@@ -45,9 +45,9 @@
 }
 .register{
 	position: relative;
-	margin-left: 80%;
-	bottom: -40%;
-	width: 200%;
+	top:40%;
+	left: 40%;
+	width: 100%;
 }
 .register span{
 	color: white;

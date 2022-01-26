@@ -19,4 +19,9 @@ public class SkipPagesController {
     public String skipNetword(){
         return "network";
     }
+
+    @RequestMapping("/to_register")
+    public String to_register(){
+        return "register";
+    }
 }

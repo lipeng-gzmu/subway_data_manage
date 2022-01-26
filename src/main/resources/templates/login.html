@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0">
     <title>登录</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="css/base.css">
@@ -35,6 +35,7 @@
 		<div class="login">
 			<form action="/login" method="post">
 			<h3 style="text-align: center; color: white;">登录</h3>
+				<span th:if="${msg!=null}" th:text="${msg}" style="color: red;float: left;margin-left:42%;">laill</span>
 			<div class="account">
 				<span>账号：</span>
 				<input type="text" name="phone" placeholder="电话号码"/>
@@ -48,7 +49,7 @@
 			</div>
 			</form>
 			<div class="register">
-				<span>没有账号,<a href="/to_register">立刻注册</a></span>
+				<span>没有账号?,<a href="/to_register">立刻注册</a></span>
 			</div>
 		</div>
 
