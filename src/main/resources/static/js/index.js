@@ -40,6 +40,13 @@ $(function () {
                             width:'1'//坐标线的宽度
                         }
                     },
+                    axisLabel: {
+                        show: true,
+                        textStyle: {
+                            color: '#fff',  //更改坐标轴文字颜色
+                            fontSize : 10      //更改坐标轴文字大小
+                        }
+                    }
                 }
             ],
             yAxis: [
@@ -62,6 +69,8 @@ $(function () {
                     data: [120, 200, 150, 80, 70, 110, 130,120,170,100],
                     itemStyle: {
                         normal: {
+                            //设置柱子的圆角
+                            barBorderRadius:[4,4,0,0],
                             //每根柱子颜色设置
                             color: function(params) {
                                 let colorList = [
