@@ -3,7 +3,6 @@ package com.gzmu.lpzyf.mapper;
 import com.gzmu.lpzyf.bean.MetroLine;
 import org.springframework.stereotype.Repository;
 
-import java.util.Map;
 
 @Repository
 public interface MetroLineMapper {
