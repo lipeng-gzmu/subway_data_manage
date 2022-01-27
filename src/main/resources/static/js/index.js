@@ -83,7 +83,7 @@ $(function () {
                     itemStyle: {
                         normal: {
                             //设置柱子的圆角
-                            barBorderRadius:[4,4,0,0],
+                            barBorderRadius:[3,3,0,0],
                             //每根柱子颜色设置
                             color: function(params) {
                                 let colorList = [
@@ -101,7 +101,7 @@ $(function () {
                                 return colorList[params.dataIndex];
                             }
                         }
-                    },
+                    }
                 }
             ]
         };
@@ -444,83 +444,87 @@ $(function () {
         var myChart = echarts.init(document.getElementById('chart_3'));
         myChart.clear();
         option = {
-            title: {
-                text: ''
-            },
             tooltip: {
-                trigger: 'axis'
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    crossStyle: {
+                        color: '#999'
+                    }
+                }
             },
             legend: {
-                data:['铁路货物','国家铁路货物','地方铁路货物','合资铁路货物','公路货物','水运货物'],
-                textStyle:{
-                    color: '#fff'
-                },
-                top: '8%'
+                data: ['2020', '2021']
             },
             grid: {
-                top: '40%',
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
+                left: '0.5%',
+                right: '0.5%',
+                bottom: '0',
                 containLabel: true
             },
-            color: ['#FF4949','#FFA74D','#FFEA51','#4BF0FF','#44AFF0','#4E82FF','#584BFF','#BE4DFF','#F845F1'],
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: ['2012年','2013年','2014年','2015年','2016年'],
-                splitLine: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff'
-                    }
+            xAxis: [
+                {
+                    type: 'category',
+                    axisLabel: {
+                        formatter: '{value}',
+                        fontSize:9,
+                        color:'#fff'
+                    },
+                    data: ['武汉','成都', '广州', '北京', '上海'],
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    /*axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#fff',//左边线的颜色
+                            width:'1'//坐标线的宽度
+                        }
+                    }*/
                 }
-            },
-            yAxis: {
-                name: '亿吨公里',
-                type: 'value',
-                splitLine: {
-                    show: false
-                },
-                axisLine: {
-                    lineStyle: {
-                        color: '#fff'
-                    }
+            ],
+            yAxis: [
+                {
+                    type: 'value',
+                    name: 'km',
+                    min: 300,
+                    max: 900,
+                    interval:100,
+                    axisLabel: {
+                        formatter: '{value}',
+                        fontSize:9,
+                        color:'#fff'
+                    },
+                    /*axisLine: {
+                        lineStyle: {
+                            type: 'solid',
+                            color: '#fff',//左边线的颜色
+                            width:'1'//坐标线的宽度
+                        }
+                    }*/
                 }
-            },
+            ],
             series: [
                 {
-                    name:'铁路货物',
-                    type:'line',
-                    data:[3961.88, 4233.63, 4183.14, 3633.01, 3704.47]
+                    name: '2020',
+                    type: 'bar',
+                    tooltip: {
+                        valueFormatter: function (value) {
+                            return value + ' km';
+                        }
+                    },
+                    data: [338.94 ,518.50 ,531.10 ,704.69 ,728.00 ],
                 },
                 {
-                    name:'国家铁路货物',
-                    type:'line',
-                    data:[3374.76, 3364.76, 3274.76, 3371.82, 3259.87]
+                    name: '2021',
+                    type: 'bar',
+                    tooltip: {
+                        valueFormatter: function (value) {
+                            return value + ' km';
+                        },
+                    },
+                    data: [435.24 ,518.50 ,589.40 ,761.69 ,829.60],
                 },
-                {
-                    name:'地方铁路货物',
-                    type:'line',
-                    data:[14.77, 15.17, 13.17, 14.56, 15.84]
-                },
-                {
-                    name:'合资铁路货物',
-                    type:'line',
-                    data:[686.17,847.26,895.22,865.28,886.72]
-                },
-                {
-                    name:'公路货物',
-                    type:'line',
-                    data:[6133.47, 6577.89, 7019.56,6821.48,7294.59]
-                },
-                {
-                    name:'水运货物',
-                    type:'line',
-                    data:[509.60, 862.54, 1481.77,1552.79,1333.62]
-                }
             ]
         };
         myChart.setOption(option);
