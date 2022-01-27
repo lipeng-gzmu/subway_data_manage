@@ -10,4 +10,7 @@
     <select id="findLineCount" resultType="Integer">
         SELECT count(*) from metro_line ml where city_id =#{city_id}
     </select>
+    <select id="findLineCount1" resultType="MetroLine">
+        select city_id ,COUNT(city_id)as num from metro_line ml group by city_id order by num DESC
+    </select>
 </mapper>

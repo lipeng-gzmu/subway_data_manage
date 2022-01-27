@@ -9,5 +9,7 @@
 <insert id="insert">
     insert into city_info values(#{id},#{nameCn},#{nameEn})
 </insert>
-
+    <select id="findById" resultType="City">
+    select * from city_info where id=#{id}
+</select>
 </mapper>

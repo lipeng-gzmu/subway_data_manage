@@ -19,4 +19,9 @@ public class CityServiceImpl implements CityService {
         return cityMapper.findAll();
     }
 
+    @Override
+    public City findById(Integer id) {
+        return cityMapper.findById(id);
+    }
+
 }

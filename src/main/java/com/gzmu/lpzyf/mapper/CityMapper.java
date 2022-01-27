@@ -9,4 +9,6 @@ import java.util.List;
 public interface CityMapper {
     List<City> findAll();
     void insert(City city);
+    //根据Id查询
+    City findById(Integer id);
 }

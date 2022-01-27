@@ -1,6 +1,7 @@
 package com.gzmu.lpzyf.controller;
 
 import com.gzmu.lpzyf.bean.City;
+import com.gzmu.lpzyf.bean.MetroLine;
 import com.gzmu.lpzyf.service.CityService;
 import com.gzmu.lpzyf.service.MetroLineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,16 @@ public class MetroLineController {
             map.put(allCities.get(i).getNameCn(),lineCount);
         }
 
+        return map;
+    }
+    @RequestMapping("/findLineCount1")
+    public Map<String,Integer> findLineCount1(){
+        List<MetroLine> lineCount1 = metroLineService.findLineCount1();
+        Map map = new HashMap();
+        for (int i = 0 ;i<lineCount1.size();i++){
+            City city = cityService.findById(lineCount1.get(i).getCity_id());
+            map.put(city.getNameCn(),lineCount1.get(i).getNum());
+        }
         return map;
     }
 }

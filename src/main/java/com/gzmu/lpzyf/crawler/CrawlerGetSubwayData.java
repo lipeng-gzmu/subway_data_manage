@@ -47,10 +47,10 @@ public class CrawlerGetSubwayData {
                     for (SubwayLine line : lines) {
                         MetroLine metroLine = new MetroLine();
                         metroLine.setId(line.getLs());
-                        metroLine.setMetroName(line.getLn());
-                        metroLine.setMetroNameAll(line.getKn());
-                        metroLine.setLineStatus(Integer.valueOf(line.getSu()));
-                        metroLine.setCity(city);
+                        metroLine.setMetro_name(line.getLn());
+                        metroLine.setMetro_name_all(line.getKn());
+                        metroLine.setLine_status(Integer.valueOf(line.getSu()));
+                        metroLine.setCity_id(city.getId());
                         metroLines.add(metroLine);
                         List<SubwayStation> stations = line.getSt();
                         for (SubwayStation station : stations) {

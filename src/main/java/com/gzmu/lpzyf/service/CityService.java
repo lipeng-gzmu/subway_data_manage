@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CityService {
     List<City> getAllCities();
+    //根据Id查询
+    City findById(Integer id);
 }

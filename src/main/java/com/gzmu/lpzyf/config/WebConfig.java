@@ -1,3 +1,4 @@
+/*
 package com.gzmu.lpzyf.config;
 
 import com.gzmu.lpzyf.interceptor.LoginInterceptor;
@@ -17,3 +18,4 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 }
+*/

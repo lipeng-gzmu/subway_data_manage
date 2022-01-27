@@ -13,11 +13,13 @@ public class MetroLine implements Serializable {
     //线路id
     private String id;
     //线路名
-    private String metroName;
+    private String metro_name;
     //完整线路名
-    private String metroNameAll;
+    private String metro_name_all;
     //线路状态
-    private Integer lineStatus;
+    private Integer line_status;
     //城市id
-    private City city;
+    private Integer city_id;
+    //每个city_id 出现的次数
+    private Integer num;
 }
