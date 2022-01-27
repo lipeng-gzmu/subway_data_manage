@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
-@Controller
+@RestController
 public class MetroLineController {
     @Autowired
     private MetroLineService metroLineService;

@@ -1,5 +1,18 @@
 $(function () {
-    echart_1();
+    $.ajax({
+        url:"/findLineCount",
+        method: "post",
+        success: function (result) {
+            var cityName = new Array(10);
+            var num = new Array(10);
+            for(var i=0;i<10;i++){
+                cityName[i] = result[i].city.name_cn;
+                num[i] = result[i].num;
+            }
+            echart_1(cityName,num);
+        }
+    })
+   //echart_1();
     echart_2();
 
     echart_3();
@@ -9,7 +22,7 @@ $(function () {
     echart_5();
 
     //echart_1 地铁数量top10
-    function echart_1() {
+    function echart_1(ciytName,linenum) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('chart_1'));
         option = {
@@ -29,7 +42,8 @@ $(function () {
             xAxis: [
                 {
                     type: 'category',
-                    data: ['北京', '上海', '天津', '湖南', '湖北', '河南', '河北','四川','重庆','四川'],
+                   //data: ['北京', '上海', '天津', '湖南', '湖北', '河南', '河北','四川','重庆','四川'],
+                    data:ciytName,
                     axisTick: {
                         alignWithLabel: true
                     },
@@ -66,7 +80,8 @@ $(function () {
                     name: '数量',
                     type: 'bar',
                     barWidth: '60%',
-                    data: [120, 200, 150, 80, 70, 110, 130,120,170,100],
+                    //data: [120, 200, 150, 80, 70, 110, 130,120,170,100],
+                    data: linenum,
                     itemStyle: {
                         normal: {
                             //设置柱子的圆角
