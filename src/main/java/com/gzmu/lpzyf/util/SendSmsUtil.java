@@ -1,4 +1,5 @@
 package com.gzmu.lpzyf.util;
+import com.alibaba.fastjson.JSON;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 
@@ -13,6 +14,7 @@ import com.tencentcloudapi.sms.v20210111.SmsClient;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsRequest;
 import com.tencentcloudapi.sms.v20210111.models.SendSmsResponse;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +23,7 @@ import java.util.Map;
  */
 public class SendSmsUtil
 {
-   public Map send(String code,String phone){
+   public static Map send(String code,String phone){
        try {
            /* 必要步骤：
             * 实例化一个认证对象，入参需要传入腾讯云账户密钥对secretId，secretKey。
@@ -29,7 +31,10 @@ public class SendSmsUtil
             * 你也可以直接在代码中写死密钥对，但是小心不要将代码复制、上传或者分享给他人，
             * 以免泄露密钥对危及你的财产安全。
             * CAM密匙查询: https://console.cloud.tencent.com/cam/capi*/
-           Credential cred = new Credential("AKIDud7KGvJQGo67rKVQ41i9JBm9F4cttc3D", "uWrxoNfhSw95j7E4cuvf8KGuHNCjzyh8");
+           String path = FileUtil.getPath();
+           String security = FileUtil.readFile(path);
+           String[] result = FileUtil.getDecode(security);
+           Credential cred = new Credential(result[0], result[1]);
 
            // 实例化一个http选项，可选，没有特殊需求可以跳过
            HttpProfile httpProfile = new HttpProfile();
@@ -107,10 +112,15 @@ public class SendSmsUtil
            SendSmsResponse res = client.SendSms(req);
 
            // 输出json格式的字符串回包
-           System.out.println(SendSmsResponse.toJsonString(res));
+          // System.out.println(SendSmsResponse.toJsonString(res));
+           String s = SendSmsResponse.toJsonString(res);
 
+           Map<String,Object> parse = (Map<String, Object>) JSON.parse(s);
+           List<Map<String,String>> list = (List<Map<String, String>>) parse.get("SendStatusSet");
+           Map<String,String> resultMap = list.get(0);
            // 也可以取出单个值，你可以通过官网接口文档或跳转到response对象的定义处查看返回字段的定义
-           System.out.println(res.getRequestId());
+          // System.out.println(res.getRequestId());
+           return resultMap;
 
        } catch (TencentCloudSDKException e) {
            e.printStackTrace();
