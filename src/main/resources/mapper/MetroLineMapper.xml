@@ -19,12 +19,12 @@
          on duplicate key update metro_name=#{metroName},metro_name_all=#{metroNameAll},line_status=#{lineStatus},city_id=#{city.id}
     </insert>
     <!--查询每个城市的地铁线路数-->
-    <select id="findLineCount" resultType="MetroLine">
+    <select id="findCount" resultType="MetroLine">
         select city_id ,COUNT(ml.city_id)as num from metro_line ml
         group by ml.city_id
         order by num DESC
     </select>
-    <select id="findLineCount1" resultType="MetroLine" resultMap="MetroLineCity">
+    <select id="findLineCount" resultType="MetroLine" resultMap="MetroLineCity">
        select ci.name_cn ,COUNT(ml.city_id) from metro_line ml
         left join city_info ci on ci.id = ml.city_id
         group by ml.city_id

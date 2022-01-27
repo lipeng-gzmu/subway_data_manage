@@ -10,6 +10,6 @@ import java.util.List;
 public interface MetroLineMapper {
     void insert(MetroLine metroLine);
     //查询每个城市的地铁线路数
+    List<MetroLine> findCount();
     List<MetroLine> findLineCount();
-    List<MetroLine> findLineCount1();
 }
