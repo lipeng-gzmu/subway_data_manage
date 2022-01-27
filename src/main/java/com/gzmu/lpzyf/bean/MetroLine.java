@@ -19,7 +19,7 @@ public class MetroLine implements Serializable {
     //线路状态
     private Integer line_status;
     //城市id
-    private Integer city_id;
+    private City city;
     //每个city_id 出现的次数
     private Integer num;
 }

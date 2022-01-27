@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 public class City {
     private Integer id;
-    private String nameCn;
-    private String nameEn;
+    private String name_cn;
+    private String name_en;
 }

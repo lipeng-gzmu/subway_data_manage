@@ -7,7 +7,7 @@
 </select>
 
 <insert id="insert">
-    insert into city_info values(#{id},#{nameCn},#{nameEn})
+    insert into city_info values(#{id},#{name_cn},#{name_en})
 </insert>
     <select id="findById" resultType="City">
     select * from city_info where id=#{id}

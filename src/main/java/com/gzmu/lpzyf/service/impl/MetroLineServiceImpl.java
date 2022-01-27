@@ -16,8 +16,8 @@ public class MetroLineServiceImpl implements MetroLineService {
 
 
     @Override
-    public Integer findLineCount(Integer city_id) {
-        return metroLineMapper.findLineCount(city_id);
+    public List<MetroLine> findLineCount() {
+        return metroLineMapper.findLineCount();
     }
 
     @Override

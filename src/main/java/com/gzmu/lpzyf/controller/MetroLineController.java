@@ -16,25 +16,16 @@ public class MetroLineController {
     private MetroLineService metroLineService;
     @Autowired
     private CityService cityService;
-    @RequestMapping("/findLineCount")
-    public Map<String,Integer> findLineCount(){
-        List<City> allCities = cityService.getAllCities();
-        Map map = new HashMap();
-        for(int i = 0;i<allCities.size();i++){
-            Integer lineCount = metroLineService.findLineCount(allCities.get(i).getId());
-            map.put(allCities.get(i).getNameCn(),lineCount);
-        }
 
-        return map;
-    }
     @RequestMapping("/findLineCount1")
-    public Map<String,Integer> findLineCount1(){
+    public List findLineCount1(){
+        List<MetroLine> lineCount = metroLineService.findLineCount();
         List<MetroLine> lineCount1 = metroLineService.findLineCount1();
-        Map map = new HashMap();
-        for (int i = 0 ;i<lineCount1.size();i++){
-            City city = cityService.findById(lineCount1.get(i).getCity_id());
-            map.put(city.getNameCn(),lineCount1.get(i).getNum());
+        for (int i=0;i<lineCount.size();i++){
+            System.err.println(lineCount.get(i).getNum());
+            lineCount1.get(i).setNum(lineCount.get(i).getNum());
+
         }
-        return map;
+        return lineCount1;
     }
 }
