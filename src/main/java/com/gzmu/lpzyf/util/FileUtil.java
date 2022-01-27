@@ -14,7 +14,9 @@ public class FileUtil {
 
     public static String getPath(){
         String property = System.getProperty("user.dir");
-        String path = new File(property).getParent();
+        //String path = new File(property).getParent();
+        String path = property;
+        System.out.println(path);
         return path+"/security";
     }
     //读取密钥

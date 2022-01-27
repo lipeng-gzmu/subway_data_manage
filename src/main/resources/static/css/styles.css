@@ -161,7 +161,16 @@ input, button {
 	    -ms-transform:rotate(0);
 	        transform:rotate(0);
 }
-
+#sendCode{
+	display: block;
+	float: right;
+	position: relative;
+	width: 20%;
+	height: 45px;
+	margin-top: -13%;
+	right: 2%;
+	border-radius: 20px;
+}
 .hr{
 	height:2px;
 	margin:60px 0 50px 0;

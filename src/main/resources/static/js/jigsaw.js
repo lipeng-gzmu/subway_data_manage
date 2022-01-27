@@ -229,7 +229,21 @@
     }
 
   }
-
+  $("#sendCode").click(function () {
+      var phone = $("#codePhone").val();
+      $.ajax({
+          url:"/sendCode",
+          method:"post",
+          data:{"phone":phone},
+          success:function (result) {
+              if (result==200){
+                alert("发送成功",1);
+              }else {
+                alert("发送失败",2);
+              }
+          }
+      })
+  })
   window.jigsaw = {
     init: function (element, success, fail) {
       new jigsaw(element, success, fail).init()

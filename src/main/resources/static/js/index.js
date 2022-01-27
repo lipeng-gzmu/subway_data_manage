@@ -3,13 +3,13 @@ $(function () {
         url:"/findLineCount",
         method: "post",
         success: function (result) {
-            var cityName = new Array(10);
-            var num = new Array(10);
-            for(var i=0;i<10;i++){
-                cityName[i] = result[i].city.name_cn;
+            var cityName = new Array(result.length);
+            var num = new Array(result.length);
+            for(var i=0;i<result.length;i++){
+                cityName[i] = result[i].city.name;
                 num[i] = result[i].num;
+                echart_1(cityName,num)
             }
-            echart_1(cityName,num);
         }
     })
    //echart_1();
@@ -42,8 +42,7 @@ $(function () {
             xAxis: [
                 {
                     type: 'category',
-                   //data: ['北京', '上海', '天津', '湖南', '湖北', '河南', '河北','四川','重庆','四川'],
-                    data:ciytName,
+                    data: ['北京', '上海', '天津', '湖南', '湖北', '河南', '河北','四川','重庆','四川'],
                     axisTick: {
                         alignWithLabel: true
                     },
@@ -80,8 +79,7 @@ $(function () {
                     name: '数量',
                     type: 'bar',
                     barWidth: '60%',
-                    //data: [120, 200, 150, 80, 70, 110, 130,120,170,100],
-                    data: linenum,
+                    data: [120, 200, 150, 80, 70, 110, 130,120,170,100],
                     itemStyle: {
                         normal: {
                             //设置柱子的圆角
