@@ -34,8 +34,8 @@ public class CrawlerCity {
                 for (Element cityElement : cityElements) {
                     City city = new City();
                     city.setId(Integer.valueOf(cityElement.attr("id")));
-                    city.setNameCn(cityElement.text());
-                    city.setNameEn(cityElement.attr("cityname"));
+                    city.setName_cn(cityElement.text());
+                    city.setName_en(cityElement.attr("cityname"));
                     result.add(city);
                 }
                 return result;
