@@ -229,20 +229,45 @@
     }
 
   }
+  $(function () {
+      $("#sendCode").attr("disabled",true);
+  })
   $("#sendCode").click(function () {
+      $("#sendCode").attr("disabled",true)
       var phone = $("#codePhone").val();
-      $.ajax({
-          url:"/sendCode",
-          method:"post",
-          data:{"phone":phone},
-          success:function (result) {
-              if (result==200){
-                alert("发送成功",1);
-              }else {
-                alert("发送失败",2);
-              }
+      var time = 60;
+      var timeId ;
+      timeId =setInterval(function () {
+          if (time == 0) {
+              $("#sendCode").val("发送");
+              $("#sendCode").removeAttr("disabled")
+              clearInterval(timeId);
+          }else{
+              $("#sendCode").val((time--)+"s")
           }
-      })
+      },1000);
+       $.ajax({
+                url:"/sendCode",
+                method:"post",
+                data:{"phone":phone},
+                success:function (result) {
+                    if (result==200){
+                        alert("发送成功",1);
+                    }else {
+                        alert("发送失败",2);
+                    }
+                }
+            })
+  })
+  $("#codePhone").bind("input propertychange",function () {
+    var phone = $("#codePhone").val();
+    var phoneRes = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    if(phoneRes.test(phone)){
+       $("#sendCode").removeAttr("disabled")
+    }else {
+        $("#sendCode").attr("disabled",true);
+
+    }
   })
   window.jigsaw = {
     init: function (element, success, fail) {

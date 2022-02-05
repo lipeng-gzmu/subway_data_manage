@@ -4,11 +4,13 @@ import com.gzmu.lpzyf.bean.Admin;
 import com.gzmu.lpzyf.service.AdminService;
 import com.gzmu.lpzyf.util.GetCodeUtil;
 import com.gzmu.lpzyf.util.SendSmsUtil;
+import io.lettuce.core.RedisCommandTimeoutException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.support.SimpleCacheManager;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.DigestUtils;
@@ -23,12 +25,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Controller
 public class LoginController {
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
     @RequestMapping("/login")
     public String skipLogin(Admin admin, RedirectAttributesModelMap modelMap, Model model, HttpServletRequest request,HttpServletResponse response){
         String remoteAddr = request.getRemoteAddr();
@@ -74,7 +80,14 @@ public class LoginController {
     public int sendCode(String phone,HttpServletRequest request){
         if (phone!=null||phone.equals("")){
             String code = GetCodeUtil.getCode();
-            request.getSession().setAttribute("code",code);
+            //request.getSession().setAttribute("code",code);
+            try{
+                redisTemplate.opsForValue().set(phone,code);
+                redisTemplate.expire(phone,5,TimeUnit.MINUTES);
+            }catch (RedisCommandTimeoutException e){
+                return 500;
+            }
+
             Map<String,String> send = SendSmsUtil.send(code, "+86" + phone);
             System.out.println(send);
             if (send.get("Code").equals("Ok")){
@@ -105,7 +118,8 @@ public class LoginController {
                 findAdmin.setCreateTime(new Date());
                 adminService.insert(findAdmin);
             }
-            String systemCode = request.getSession().getAttribute("code").toString();
+            //String systemCode = request.getSession().getAttribute("code").toString();
+            String systemCode = redisTemplate.opsForValue().get(phone).toString();
             System.out.println(phone + "   "+code+"   "+ systemCode);
             if (systemCode.equals(code)){
                 String phone1 = findAdmin.getPhone();
