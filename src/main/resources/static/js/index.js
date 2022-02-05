@@ -3,16 +3,15 @@ $(function () {
         url:"/findLineCount",
         method: "post",
         success: function (result) {
-            var cityName = new Array(result.length);
-            var num = new Array(result.length);
-            for(var i=0;i<result.length;i++){
-                cityName[i] = result[i].city.name;
+            var city_name = new Array(10);
+            var num = new Array(10);
+            for(var i=0;i<10;i++){
+                city_name[i] = result[i].city.name_cn;
                 num[i] = result[i].num;
-                echart_1(cityName,num)
+                echart_1(city_name,num)
             }
         }
     })
-   //echart_1();
     echart_2();
 
     echart_3();
@@ -42,7 +41,7 @@ $(function () {
             xAxis: [
                 {
                     type: 'category',
-                    data: ['北京', '上海', '天津', '湖南', '湖北', '河南', '河北','四川','重庆','四川'],
+                    data: ciytName,
                     axisTick: {
                         alignWithLabel: true
                     },
@@ -79,7 +78,7 @@ $(function () {
                     name: '数量',
                     type: 'bar',
                     barWidth: '60%',
-                    data: [120, 200, 150, 80, 70, 110, 130,120,170,100],
+                    data: linenum,
                     itemStyle: {
                         normal: {
                             //设置柱子的圆角
@@ -213,224 +212,124 @@ $(function () {
     }
 
     // echart_map中国地图
-    function echart_map() {
+    function echart_map(ciytName,linenum) {
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('chart_map'));
+        var myChart = echarts.init(document.getElementById('map'));
 
+// 指定图表的配置项和数据
+        var name_title = ""
         var mapName = 'china'
-        var data = []
-        var toolTipData = [];
+        var data = [
+            { name: '湖北', value: 5806 },
+            { name: '浙江', value: 537 },
+            { name: '广东', value: 393 },
+            { name: '湖南', value: 332 },
+            { name: '河南', value: 278 },
+            { name: '江西', value: 240 },
+            { name: '安徽', value: 237 },
+            { name: '重庆', value: 206 },
+            { name: '山东', value: 178 },
+            { name: '四川', value: 177 },
+            { name: '江苏', value: 168 },
+            { name: '上海', value: 128 },
+            { name: '北京', value: 121 },
+            { name: '福建', value: 101 },
+            { name: '广西', value: 87 },
+            { name: '河北', value: 82 },
+            { name: '云南', value: 76 },
+            { name: '陕西', value: 63 },
+            { name: '黑龙江', value: 59 },
+            { name: '海南', value: 46 },
+            { name: '辽宁', value: 45 },
+            { name: '山西', value: 39 },
+            { name: '天津', value: 31 },
+            { name: '甘肃', value: 29 },
+            { name: '内蒙古', value: 18 },
+            { name: '宁夏', value: 17 },
+            { name: '吉林', value: 14 },
+            { name: '新疆', value: 14 },
+            { name: '贵州', value: 12 },
+            { name: '香港', value: 12 },
+            { name: '台湾', value: 9 },
+            { name: '青海', value: 8 },
+            { name: '澳门', value: 7 },
+            { name: '西藏', value: 1 },
 
-        /*获取地图数据*/
-        myChart.showLoading();
-        var mapFeatures = echarts.getMap(mapName).geoJson.features;
-        myChart.hideLoading();
-        var geoCoordMap = {
-            '福州': [119.4543, 25.9222],
-            '长春': [125.8154, 44.2584],
-            '重庆': [107.7539, 30.1904],
-            '西安': [109.1162, 34.2004],
-            '成都': [103.9526, 30.7617],
-            '常州': [119.4543, 31.5582],
-            '北京': [116.4551, 40.2539],
-            '北海': [109.314, 21.6211],
-            '海口': [110.3893, 19.8516],
-            '长沙': [113.019455,28.200103],
-            '上海': [121.40, 31.73],
-            '内蒙古': [106.82, 39.67]
-        };
-
-        var GZData = [
-            [{
-                name: '长沙'
-            }, {
-                name: '福州',
-                value: 95
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '长春',
-                value: 80
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '重庆',
-                value: 70
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '西安',
-                value: 60
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '成都',
-                value: 50
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '常州',
-                value: 40
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '北京',
-                value: 30
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '北海',
-                value: 20
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '海口',
-                value: 10
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '上海',
-                value: 80
-            }],
-            [{
-                name: '长沙'
-            }, {
-                name: '内蒙古',
-                value: 80
-            }]
         ];
 
-        var convertData = function (data) {
-            var res = [];
-            for (var i = 0; i < data.length; i++) {
-                var dataItem = data[i];
-                var fromCoord = geoCoordMap[dataItem[0].name];
-                var toCoord = geoCoordMap[dataItem[1].name];
-                if (fromCoord && toCoord) {
-                    res.push({
-                        fromName: dataItem[0].name,
-                        toName: dataItem[1].name,
-                        coords: [fromCoord, toCoord]
-                    });
-                }
-            }
-            return res;
-        };
-
-        var color = ['#c5f80e'];
-        var series = [];
-        [
-            ['石家庄', GZData]
-        ].forEach(function (item, i) {
-            series.push({
-                name: item[0],
-                type: 'lines',
-                zlevel: 2,
-                symbol: ['none', 'arrow'],
-                symbolSize: 10,
-                effect: {
-                    show: true,
-                    period: 6,
-                    trailLength: 0,
-                    symbol: 'arrow',
-                    symbolSize: 5
+        var option = {
+            title: {
+                text: name_title,
+                x: 'center',
+                textStyle: {
+                    fontSize: 24
                 },
-                lineStyle: {
-                    normal: {
-                        color: color[i],
-                        width: 1,
-                        opacity: 0.6,
-                        curveness: 0.2
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: function(params) {
+                    var toolTiphtml = ''
+                    if (isNaN(params.value)){
+                        toolTiphtml = params.name + '地铁数量: 0'
+                    }else{
+                        toolTiphtml = params.name + '地铁数量: ' + params.value
                     }
-                },
-                data: convertData(item[1])
-            }, {
-                name: item[0],
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                zlevel: 2,
-                rippleEffect: {
-                    brushType: 'stroke'
-                },
+                    return toolTiphtml;
+                }
+            },
+
+            visualMap: {
+                show: true,
+                left: 'left',
+                top: 'bottom',
+                seriesIndex: [0],
+                type:'piecewise',
+                pieces:[
+                    {min:21, color: '#FF4949'},
+                    {min:16, max:20, color: '#FFA74D'},
+                    {min:11, max:15, color: '#FFEA51'},
+                    {min:4, max:10, color:  '#4BF0FF'},
+                    {min:1, max:3, color: '#44AFF0'},
+                ],
+                textStyle: {
+                    color: '#000000'
+                }
+            },
+            geo: {
+                show: true,
+                map: mapName,
                 label: {
                     normal: {
                         show: true,
-                        position: 'right',
-                        formatter: '{b}'
-                    }
-                },
-                symbolSize: function (val) {
-                    return val[2] / 8;
-                },
-                itemStyle: {
-                    normal: {
-                        color: color[i]
-                    }
-                },
-                data: item[1].map(function (dataItem) {
-                    return {
-                        name: dataItem[1].name,
-                        value: geoCoordMap[dataItem[1].name].concat([dataItem[1].value])
-                    };
-                })
-            });
-        });
-
-        option = {
-            tooltip: {
-                trigger: 'item'
-            },
-            geo: {
-                map: 'china',
-                label: {
-                    emphasis: {
-                        show: false
-                    }
-                },
-                roam: true,
-                itemStyle: {
-                    normal: {
-                        borderColor: 'rgba(147, 235, 248, 1)',
-                        borderWidth: 1,
-                        areaColor: {
-                            type: 'radial',
-                            x: 0.5,
-                            y: 0.5,
-                            r: 0.8,
-                            colorStops: [{
-                                offset: 0,
-                                color: 'rgba(175,238,238, 0)' // 0% 处的颜色
-                            }, {
-                                offset: 1,
-                                color: 'rgba(47,79,79, .1)' // 100% 处的颜色
-                            }],
-                            globalCoord: false // 缺省为 false
-                        },
-                        shadowColor: 'rgba(128, 217, 248, 1)',
-                        // shadowColor: 'rgba(255, 255, 255, 1)',
-                        shadowOffsetX: -2,
-                        shadowOffsetY: 2,
-                        shadowBlur: 10
+                        fontSize:12,
                     },
                     emphasis: {
-                        areaColor: '#389BB7',
-                        borderWidth: 0
+                        show: false,
+                    }
+                },
+                roam: false,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#FFFFFF',
+                        borderColor: '#666666',
+                    },
+                    emphasis: {
+                        areaColor: '#0099CC',
                     }
                 }
             },
-            series: series
+            series: [
+                {
+                    type: 'map',
+                    map: mapName,
+                    geoIndex: 0,
+                    animation: false,
+                    data: data
+                },
+            ]
         };
 
-        // 使用刚指定的配置项和数据显示图表。
+// 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
         window.addEventListener("resize", function () {
             myChart.resize();
@@ -453,9 +352,6 @@ $(function () {
                     }
                 }
             },
-            legend: {
-                data: ['2020', '2021']
-            },
             grid: {
                 left: '0.5%',
                 right: '0.5%',
@@ -473,14 +369,7 @@ $(function () {
                     data: ['武汉','成都', '广州', '北京', '上海'],
                     axisPointer: {
                         type: 'shadow'
-                    },
-                    /*axisLine: {
-                        lineStyle: {
-                            type: 'solid',
-                            color: '#fff',//左边线的颜色
-                            width:'1'//坐标线的宽度
-                        }
-                    }*/
+                    }
                 }
             ],
             yAxis: [
@@ -494,20 +383,14 @@ $(function () {
                         formatter: '{value}',
                         fontSize:9,
                         color:'#fff'
-                    },
-                    /*axisLine: {
-                        lineStyle: {
-                            type: 'solid',
-                            color: '#fff',//左边线的颜色
-                            width:'1'//坐标线的宽度
-                        }
-                    }*/
+                    }
                 }
             ],
             series: [
                 {
                     name: '2020',
                     type: 'bar',
+                    color:'#4BF0FF',
                     tooltip: {
                         valueFormatter: function (value) {
                             return value + ' km';
@@ -518,6 +401,7 @@ $(function () {
                 {
                     name: '2021',
                     type: 'bar',
+                    color:'#288588',
                     tooltip: {
                         valueFormatter: function (value) {
                             return value + ' km';
