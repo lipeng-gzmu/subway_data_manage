@@ -8,8 +8,16 @@ $(function () {
             for(var i=0;i<10;i++){
                 city_name[i] = result[i].city.name_cn;
                 num[i] = result[i].num;
-                echart_1(city_name,num)
+
             }
+            echart_1(city_name,num)
+        }
+    })
+    $.ajax({
+        url:"/findLineCountAll",
+        method: "post",
+        success: function (result) {
+            echart_map(result)
         }
     })
     echart_2();
@@ -17,7 +25,7 @@ $(function () {
     echart_3();
     echart_4();
 
-    echart_map();
+    //echart_map();
     echart_5();
 
     //echart_1 地铁数量top10
@@ -212,50 +220,13 @@ $(function () {
     }
 
     // echart_map中国地图
-    function echart_map(ciytName,linenum) {
+    function echart_map(data) {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('map'));
 
 // 指定图表的配置项和数据
         var name_title = ""
         var mapName = 'china'
-        var data = [
-            { name: '湖北', value: 5806 },
-            { name: '浙江', value: 537 },
-            { name: '广东', value: 393 },
-            { name: '湖南', value: 332 },
-            { name: '河南', value: 278 },
-            { name: '江西', value: 240 },
-            { name: '安徽', value: 237 },
-            { name: '重庆', value: 206 },
-            { name: '山东', value: 178 },
-            { name: '四川', value: 177 },
-            { name: '江苏', value: 168 },
-            { name: '上海', value: 128 },
-            { name: '北京', value: 121 },
-            { name: '福建', value: 101 },
-            { name: '广西', value: 87 },
-            { name: '河北', value: 82 },
-            { name: '云南', value: 76 },
-            { name: '陕西', value: 63 },
-            { name: '黑龙江', value: 59 },
-            { name: '海南', value: 46 },
-            { name: '辽宁', value: 45 },
-            { name: '山西', value: 39 },
-            { name: '天津', value: 31 },
-            { name: '甘肃', value: 29 },
-            { name: '内蒙古', value: 18 },
-            { name: '宁夏', value: 17 },
-            { name: '吉林', value: 14 },
-            { name: '新疆', value: 14 },
-            { name: '贵州', value: 12 },
-            { name: '香港', value: 12 },
-            { name: '台湾', value: 9 },
-            { name: '青海', value: 8 },
-            { name: '澳门', value: 7 },
-            { name: '西藏', value: 1 },
-
-        ];
 
         var option = {
             title: {
@@ -336,6 +307,14 @@ $(function () {
         });
 
     }
+
+
+
+
+
+
+
+
 
     //echart_3货物周转量
     function echart_3() {

@@ -20,7 +20,7 @@ public class MetroLineController {
     private CityService cityService;
 
     @RequestMapping("/findLineCount")
-    public List findLineCount(Model model){
+    public List findLineCount(){
         List<MetroLine> count = metroLineService.findCount();
         List<MetroLine> lineCount = metroLineService.findLineCount();
         for (int i=0;i<count.size();i++){
@@ -28,5 +28,22 @@ public class MetroLineController {
 
         }
         return lineCount;
+    }
+
+    @RequestMapping("/findLineCountAll")
+    public List<Map<String, String>> findLineCountAll(){
+        List<MetroLine> count = metroLineService.findCount();
+        List<MetroLine> lineCount = metroLineService.findLineCount();
+        for (int i=0;i<count.size();i++){
+            lineCount.get(i).setNum(count.get(i).getNum());
+        }
+        List<Map<String,String>> resultlist = new LinkedList<>();
+        for (MetroLine metroLine : lineCount) {
+            Map<String,String> tempMap = new HashMap<>();
+            tempMap.put("name",metroLine.getCity().getName_cn());
+            tempMap.put("value",metroLine.getNum().toString());
+            resultlist.add(tempMap);
+        }
+        return resultlist;
     }
 }
