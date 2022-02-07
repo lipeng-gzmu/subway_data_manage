@@ -128,20 +128,20 @@
     margin-bottom: 50px;
 }
 .data_content .data_main .main_left div .main_title{
-    width: 180px;
+    width: 200px;
     height: 35px;
-    line-height: 33px;
+    line-height: 35px;
     background-color: #2C58A6;
     border-radius: 18px;
     position: absolute;
     top: -17px;
-    left:50%;
+    left: 47%;
     margin-left: -90px;
     color:#fff;
     font-size: 16px;
     font-weight: 600;
     box-sizing: border-box;
-    padding-left: 45px;
+    text-align: center;
     z-index: 1000;
 }
 .data_content .data_main .main_left div .main_title img{
@@ -168,13 +168,13 @@
 }
 .l_t_line{
     width: 5px;
-    height: 24px;
+    height: 15px;
     left: -3px;
     top: -3px;
 }
 .t_l_line{
     height: 5px;
-    width: 26px;
+    width: 15px;
     left: -3px;
     top: -3px;
 }
@@ -190,37 +190,37 @@
 }
 .t_r_line{
     height: 5px;
-    width: 26px;
+    width: 15px;
     right: -3px;
     top: -3px;
 }
 .r_t_line{
     width: 5px;
-    height: 24px;
+    height: 15px;
     right: -3px;
     top: -3px;
 }
 .l_b_line{
     width: 5px;
-    height: 24px;
+    height: 15px;
     left: -3px;
     bottom: -3px;
 }
 .b_l_line{
     height: 5px;
-    width: 26px;
+    width: 15px;
     left: -3px;
     bottom: -3px;
 }
 .r_b_line{
     width: 5px;
-    height: 24px;
+    height: 15px;
     right: -3px;
     bottom: -3px;
 }
 .b_r_line{
     height: 5px;
-    width: 26px;
+    width: 15px;
     right: -3px;
     bottom: -3px;
 }
@@ -301,20 +301,20 @@
     margin-bottom: 50px;
 }
 .data_content .data_main .main_right div .main_title{
-    width: 180px;
+    width: 200px;
     height: 35px;
-    line-height: 33px;
+    line-height: 35px;
     background-color: #2C58A6;
     border-radius: 18px;
     position: absolute;
     top: -17px;
-    left:50%;
+    left:47%;
     margin-left: -90px;
     color:#fff;
     font-size: 16px;
     font-weight: 600;
     box-sizing: border-box;
-    padding-left: 45px;
+    text-align: center;
 }
 .data_content .data_main .main_right div .main_title img{
     position: absolute;

@@ -1,7 +1,6 @@
 package com.gzmu.lpzyf.util;
 
 import org.springframework.core.io.ClassPathResource;
-import sun.misc.Resource;
 
 import java.io.*;
 import java.util.Base64;
