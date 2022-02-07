@@ -4,6 +4,7 @@ import com.gzmu.lpzyf.bean.City;
 import com.gzmu.lpzyf.bean.MetroLine;
 import com.gzmu.lpzyf.service.CityService;
 import com.gzmu.lpzyf.service.MetroLineService;
+import com.gzmu.lpzyf.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,11 +39,24 @@ public class MetroLineController {
             lineCount.get(i).setNum(count.get(i).getNum());
         }
         List<Map<String,String>> resultlist = new LinkedList<>();
+        Map<String,String> cityMap = FileUtil.readFileToMap("other/city_privince.txt");
         for (MetroLine metroLine : lineCount) {
+            boolean check = true;
             Map<String,String> tempMap = new HashMap<>();
-            tempMap.put("name",metroLine.getCity().getName_cn());
-            tempMap.put("value",metroLine.getNum().toString());
-            resultlist.add(tempMap);
+            String name=cityMap.get(metroLine.getCity().getName_cn());
+            String value=metroLine.getNum().toString();
+            for (Map<String, String> map : resultlist) {
+                if (map.containsValue("name")){
+                    map.put("value",Integer.valueOf(map.get("value")+value).toString());
+                    check=false;
+                }
+            }
+            if (check){
+                tempMap.put("name",name);
+                tempMap.put("value",value);
+                resultlist.add(tempMap);
+            }
+
         }
         return resultlist;
     }
