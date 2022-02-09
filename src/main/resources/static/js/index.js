@@ -276,12 +276,6 @@ $(function () {
 
 
 
-
-
-
-
-
-
     //echart_3
     function echart_3() {
         // 基于准备好的dom，初始化echarts实例
@@ -470,7 +464,7 @@ $(function () {
         };
         myChart.setOption(option);
     }
-    //湖南高速公路
+    //
     function echart_4() {
           // 基于准备好的dom，初始化echarts实例
           var myChart = echarts.init(document.getElementById('chart_4'));
@@ -482,15 +476,6 @@ $(function () {
                 textStyle: {
                     fontSize: 8,
                     color:'white'
-                }
-            },
-            toolbox: {
-                show: true,
-                feature: {
-                    mark: { show: true },
-                    dataView: { show: true, readOnly: false },
-                    restore: { show: true },
-                    saveAsImage: { show: true }
                 }
             },
             series: [
