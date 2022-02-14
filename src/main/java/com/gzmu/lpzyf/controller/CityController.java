@@ -25,4 +25,10 @@ public class CityController {
         City city = cityService.findById(id);
         return city;
     }
+
+    @RequestMapping("/findCities")
+    public List findCities(){
+        List<City> cities = cityService.findCities();
+        return cities;
+    }
 }

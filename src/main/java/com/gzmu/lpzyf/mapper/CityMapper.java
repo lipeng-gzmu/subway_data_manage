@@ -11,4 +11,7 @@ public interface CityMapper {
     void insert(City city);
     //根据Id查询
     City findById(Integer id);
+
+    //从网页获取城市
+    List<City> findCities();
 }
