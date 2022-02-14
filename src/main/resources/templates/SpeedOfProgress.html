@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/SpeedOfProgress.css">
 
     
 </head>
@@ -20,7 +21,23 @@
 <!--main-->
 <div class="data_content">
 
-    <div class="data_main"></div>
+    <div class="data_main">
+        <div class="input_message">
+            <span>城市：</span>
+            <select id="city">
+                <option>---请选择---</option>
+                <option>北京</option>
+                <option>上海</option>
+                <option>广州</option>
+            </select>
+            <input type="submit" value="开始采集">
+
+        </div>
+        <div class="collect_message">
+            <span>采集信息展示：</span>
+            <div class="message_show"></div>
+        </div>
+    </div>
 </div>
 <style>
 .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}

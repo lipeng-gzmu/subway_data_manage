@@ -1,0 +1,48 @@
+.data_main .input_message{
+    width: 100%;
+    height: 5%;
+    color: white;
+}
+.data_main .input_message span{
+    position: relative;
+    top: 15%;
+    left: 1%;
+    text-align: center;
+}
+.data_main .input_message #city{
+    position: relative;
+    width: 20%;
+    text-align: center;
+    top: 15%;
+    left: 1%;
+}
+.data_main .input_message input{
+    position: relative;
+    top: 15%;
+    left: 1%;
+    width:10%;
+    text-align: center;
+    color: black;
+
+}
+.data_main .collect_message{
+    position: relative;
+    width: 98.5%;
+    height: 60%;
+    top: 2%;
+    color: white;
+    background-color: rgba(0,0,0,0.3);
+}
+.data_main .collect_message span{
+    position: relative;
+    top: 1%;
+    left: 1%;
+}
+.data_main .collect_message .message_show{
+    position: relative;
+    width: 96.5%;
+    height: 10%;
+    left:2% ;
+    top: 2%;
+
+}
