@@ -29,6 +29,9 @@
 				<div class="login-form">
 					<form action="/login" method="post">
 					<div class="sign-in-htm">
+						<div class="grounp">
+							<span style="color: red" th:if="${msg!=null}" th:text="${msg}"></span>
+						</div>
 						<div class="group">
 							<label for="username" class="label">电话号码</label>
 							<input id="username" name="phone" type="text" class="input">

@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 public interface AdminMapper {
     Admin findByPhone(String phone);
     void insert(Admin admin);
+    int updateName(Admin admin);
+    void updatePassword(Admin admin);
 }

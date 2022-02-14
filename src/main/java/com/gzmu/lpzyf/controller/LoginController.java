@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -63,10 +64,15 @@ public class LoginController {
                 String phone = findAdmin.getPhone();
                 String sub1 = phone.substring(0,3);
                 String sub2 = phone.substring(7,11);
-                phone = sub1 +"****"+sub2;
+                //phone = sub1 +"****"+sub2;
                 request.getSession().setAttribute("username",findAdmin.getName());
                 request.getSession().setAttribute("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(findAdmin.getCreateTime()));
                 request.getSession().setAttribute("phone",phone);
+                Map<String,String> map = new HashMap<>();
+                map.put("username",findAdmin.getName());
+                map.put("createTime",new Date().toString());
+                map.put("phone",phone);
+                redisTemplate.opsForHash().putAll(request.getSession().getId(),map);
                 log.info("ip:["+remoteAddr+"]"+ ",user:["+remoteUser+"]Host:["+remoteHost+"]" +
                         "port:["+remotePort+"]admin:["+admin.getPhone()+"]result:[login Success]type:[login]method:[phone]");
                 return "index";
@@ -74,6 +80,12 @@ public class LoginController {
         }
     }
 
+    @RequestMapping("/getRedisUser")
+    @ResponseBody
+    public String getRedisUser(HttpServletRequest request){
+        Object name = redisTemplate.opsForHash().get(request.getSession().getId(), "name");
+        return name.toString();
+    }
     @RequestMapping("/sendCode")
     @ResponseBody
     public int sendCode(String phone,HttpServletRequest request){
@@ -124,7 +136,7 @@ public class LoginController {
                 String phone1 = findAdmin.getPhone();
                 String sub1 = phone.substring(0,3);
                 String sub2 = phone.substring(7,11);
-                phone = sub1+"****"+sub2;
+                //phone = sub1+"****"+sub2;
                 request.getSession().setAttribute("username",findAdmin.getName());
                 request.getSession().setAttribute("createTime",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(findAdmin.getCreateTime()));
                 request.getSession().setAttribute("phone",phone);

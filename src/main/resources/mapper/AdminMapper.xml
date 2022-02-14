@@ -10,4 +10,12 @@
         insert into admin values(#{phone},#{name},#{password},#{createTime})
     </insert>
 
+    <update id="updateName">
+        update admin set name=#{name} where phone=#{phone}
+    </update>
+
+    <update id="updatePassword">
+        update admin set password=#{password} where phone=#{phone}
+    </update>
+
 </mapper>
