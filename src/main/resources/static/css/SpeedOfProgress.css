@@ -31,8 +31,11 @@
     width: 98.5%;
     height: 60%;
     top: 2%;
-    color: white;
-    background-color: rgba(0,0,0,0.3);
+    color: black;
+    background-color: white;
+    overflow: scroll;
+    overflow-x: auto;
+    overflow-y: auto;
 }
 .data_main .collect_message span{
     position: relative;

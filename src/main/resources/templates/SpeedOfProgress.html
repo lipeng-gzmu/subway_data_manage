@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/index.css">
 	<link rel="stylesheet" href="css/public.css"/>
     <link rel="stylesheet" href="css/SpeedOfProgress.css">
+    <script src="js/jquery-2.2.1.min.js" type="text/javascript"></script>
+    <script src="js/jquery.subwayMap-0.5.3.js" type="text/javascript"></script>
 
     
 </head>
@@ -35,13 +37,31 @@
         </div>
         <div class="collect_message">
             <span>采集信息展示：</span>
-            <div class="message_show"></div>
+            <div class="message_show" >
+
+            </div>
         </div>
     </div>
 </div>
 <style>
 .copyrights{text-indent:-9999px;height:0;line-height:0;font-size:0;overflow:hidden;}
 </style>
-
+<script src="js/subwayMapController.js"></script>
+<script type="text/javascript">
+    $(function (){
+        $.ajax({
+            url: "city/findCities",
+            method: "post",
+            data:{},
+            success:function (result){
+                var html="";
+                for(var i=0;i<result.length;i++){
+                    html+="<option value='"+result[i].id+"'>"+result[i].name_cn+"</option>"
+                }
+                $("#city").html(html);
+            }
+        })
+    })
+</script>
 </body>
 </html>
