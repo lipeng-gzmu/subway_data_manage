@@ -247,7 +247,7 @@ $(function () {
                 roam: false,
                 itemStyle: {
                     normal: {
-                        areaColor: '#FFFFFF',
+                        areaColor: '#BCE6FF',
                         borderColor: '#666666',
                     },
                     emphasis: {
