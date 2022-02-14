@@ -15,16 +15,19 @@ import java.util.List;
 public class CityServiceImpl implements CityService {
     @Autowired
     private CityMapper cityMapper;
+    //查询所有的城市
     @Override
     public List<City> getAllCities() {
         return cityMapper.findAll();
     }
 
+    //根据Id查询
     @Override
     public City findById(Integer id) {
         return cityMapper.findById(id);
     }
 
+    //从网页爬取城市数据
     @Override
     public List<City> findCities() {
         CrawlerCity crawlerCity = new CrawlerCity();

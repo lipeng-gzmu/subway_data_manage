@@ -14,11 +14,14 @@ import java.util.List;
 public class CityController {
     @Autowired
     private CityService cityService;
+
+    //查询所有的城市
     @RequestMapping("/getCities")
     public List<City> getCities(){
         List<City> allCities = cityService.getAllCities();
         return allCities;
     }
+
     //根据id查询
     @RequestMapping("/getCity/{id}")
     public City getCity(Integer id){
@@ -26,6 +29,7 @@ public class CityController {
         return city;
     }
 
+    //从网页爬取城市数据
     @RequestMapping("/findCities")
     public List findCities(){
         List<City> cities = cityService.findCities();
