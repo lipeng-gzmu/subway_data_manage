@@ -18,7 +18,10 @@ public class SubwayStation {
     private String su;
     //经纬度
     private String sl;
-
+    //站点坐标
+    private String p;
+    //是否中转站
+    private String t;
     //站点ids
     private String r;
 }

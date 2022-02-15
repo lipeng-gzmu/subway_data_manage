@@ -43,7 +43,7 @@ public class MetroLineController {
         for (MetroLine metroLine : lineCount) {
             boolean check = true;
             Map<String,String> tempMap = new HashMap<>();
-            String name=cityMap.get(metroLine.getCity().getName_cn());
+            String name=cityMap.get(metroLine.getCity().getNameCn());
             String value=metroLine.getNum().toString();
             for (Map<String, String> map : resultlist) {
                 if (map.containsValue("name")){

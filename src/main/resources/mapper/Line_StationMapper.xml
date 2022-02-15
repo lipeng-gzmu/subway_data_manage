@@ -2,9 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gzmu.lpzyf.mapper.Line_StationMapper">
+<select id="findByLineId" resultType="MetroStation">
+    select
+    distinct
+    ms.id,ms.name,ms.name_en,ms.longitude,ms.latitude,ms.coordinate_x,ms.coordinate_y,ms.if_transfer,ms.station_status
+    from line_station ls
+    left join metro_station ms on ls.station_id=ms.id
+    where ls.line_id=#{lineId} order by ls.order_num ASC
+</select>
 <insert id="insert">
-    insert into line_station values(null,#{lineId},#{stationId})
-    on duplicate key update line_id=#{lineId},station_id=#{stationId}
+    insert ignore into line_station values(#{id},#{lineId},#{stationId},#{orderNum})
+    on duplicate key update line_id=#{lineId},station_id=#{stationId},order_num=IF(NULL,#{orderNum},VALUES(order_num))
 </insert>
+
+
 
 </mapper>

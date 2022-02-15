@@ -11,4 +11,5 @@ public class Line_Station {
     private String id;
     private String lineId;
     private String stationId;
+    private Integer orderNum;
 }

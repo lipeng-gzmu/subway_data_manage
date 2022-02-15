@@ -48,7 +48,22 @@ public class CrawlerServiceImpl implements CrawlerService {
         List<MetroStation> metroStations = subwayData.get("metroStations");
         List<Line_Station> line_stations = subwayData.get("line_station");
         logger.info("数据爬取完成，正在导入数据库");
-        int sum = metroLines.size()+metroStations.size()+line_stations.size();
+        int i=0;
+       /* for (MetroLine metroLine : metroLines) {
+            metroLineMapper.insert(metroLine);
+            logger.info("正在导入线路数据:"+(++i)+"/"+metroLines.size());
+        }
+        i=0;
+        for (MetroStation metroStation : metroStations) {
+            metroStationMapper.insert(metroStation);
+            logger.info("正在导入站点数据:"+(++i)+"/"+metroStations.size());
+        }*/
+        i=0;
+        for (Line_Station line_station : line_stations) {
+            line_stationMapper.insert(line_station);
+            logger.info("正在导入关联数据:"+(++i)+"/"+line_stations.size());
+        }
+        /*int sum = metroLines.size()+metroStaStationtions.size()+line_stations.size();
             new Thread(new Runnable() {
                 @Transactional
                 @Override
@@ -90,7 +105,7 @@ public class CrawlerServiceImpl implements CrawlerService {
 
                     }
                 }
-            }).start();
+            }).start();*/
 
             return subwayData;
     }

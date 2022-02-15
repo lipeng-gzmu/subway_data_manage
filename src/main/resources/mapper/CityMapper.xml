@@ -3,11 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gzmu.lpzyf.mapper.CityMapper">
 <select id="findAll" resultType="City">
-    select id,name_cn as nameCn,name_en as nameEn from city_info
+    select id,name_cn,name_en from city_info
 </select>
 
 <insert id="insert">
-    insert into city_info values(#{id},#{name_cn},#{name_en})
+    insert into city_info values(#{id},#{nameCn},#{nameEn})
 </insert>
     <select id="findById" resultType="City">
     select * from city_info where id=#{id}

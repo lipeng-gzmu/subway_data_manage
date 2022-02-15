@@ -29,9 +29,10 @@
 .data_main .collect_message{
     position: relative;
     width: 98.5%;
-    height: 60%;
+    height: 100%;
     top: 2%;
     color: black;
+    font-size: 10px;
     background-color: white;
     overflow: scroll;
     overflow-x: auto;

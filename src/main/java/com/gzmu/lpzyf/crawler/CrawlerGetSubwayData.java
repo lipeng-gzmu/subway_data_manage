@@ -17,8 +17,10 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Component
@@ -34,7 +36,7 @@ public class CrawlerGetSubwayData {
         int status =1;
         for (City city : allCities) {
             Date timestamp = new Date();
-            httpGet = new HttpGet("http://map.amap.com/service/subway?_"+timestamp.getTime()+"&srhdata="+city.getId()+"_drw_"+city.getName_en()+".json");
+            httpGet = new HttpGet("http://map.amap.com/service/subway?_"+timestamp.getTime()+"&srhdata="+city.getId()+"_drw_"+city.getNameEn()+".json");
             httpGet.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:96.0) Gecko/20100101 Firefox/95.0");
             try {
                 CloseableHttpResponse response = httpClient.execute(httpGet);
@@ -47,12 +49,16 @@ public class CrawlerGetSubwayData {
                     for (SubwayLine line : lines) {
                         MetroLine metroLine = new MetroLine();
                         metroLine.setId(line.getLs());
-                        metroLine.setMetro_name(line.getLn());
-                        metroLine.setMetro_name_all(line.getKn());
-                        metroLine.setLine_status(Integer.valueOf(line.getSu()));
+                        metroLine.setMetroName(line.getLn());
+                        metroLine.setMetroNameAll(line.getKn());
+                        metroLine.setLineStatus(Integer.valueOf(line.getSu()));
+                        metroLine.setIfRing(Integer.valueOf(line.getLo()));
+                        metroLine.setLineColor(line.getCl());
                         metroLine.setCity(city);
                         metroLines.add(metroLine);
                         List<SubwayStation> stations = line.getSt();
+
+                        Integer orderNum=1;
                         for (SubwayStation station : stations) {
                             MetroStation metroStation = new MetroStation();
                             metroStation.setId(station.getSid());
@@ -61,6 +67,10 @@ public class CrawlerGetSubwayData {
                             String[] split = station.getSl().split(",");
                             metroStation.setLatitude(split[0]);
                             metroStation.setLongitude(split[1]);
+                            String[] coordinate = station.getP().split(" ");
+                            metroStation.setCoordinateX(Double.valueOf(coordinate[0])/10);
+                            metroStation.setCoordinateY(Double.valueOf(coordinate[1])/10);
+                            metroStation.setIfTransfer(Integer.valueOf(station.getT()));
                             metroStation.setStationStatus(Integer.valueOf(station.getSu()));
                             metroStations.add(metroStation);
                             String[] lineIds = station.getR().split("\\|");
@@ -68,10 +78,16 @@ public class CrawlerGetSubwayData {
                                 Line_Station line_station = new Line_Station();
                                 line_station.setLineId(lineIds[i]);
                                 line_station.setStationId(station.getSid());
-                                line_stations.add(line_station);
+                                String id = DigestUtils.md5DigestAsHex((lineIds[i]+station.getSid()).getBytes());
+                                line_station.setId(id);
+                                if(lineIds[i].equals(line.getLs())){
+                                    line_station.setOrderNum(orderNum);
+                                    line_stations.add(line_station);
+                                }
                             }
-
+                            orderNum++;
                         }
+                        orderNum=1;
                     }
                     logger.info("正在爬取城市地铁数据："+(status++)+"/"+allCities.size());
                     //System.out.println(citySubway);

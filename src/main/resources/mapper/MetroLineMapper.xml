@@ -3,21 +3,28 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gzmu.lpzyf.mapper.MetroLineMapper">
     <resultMap id="MetroLineCity" type="com.gzmu.lpzyf.bean.MetroLine">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="metro_name" jdbcType="VARCHAR" property="metro_name"/>
-        <result column="metro_name_all" jdbcType="VARCHAR" property="metro_name_all"/>
-        <result column="line_status" jdbcType="VARCHAR" property="line_status"/>
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="metro_name" jdbcType="VARCHAR" property="metroName"/>
+        <result column="metro_name_all" jdbcType="VARCHAR" property="metroNameAll"/>
+        <result column="if_ring" jdbcType="INTEGER" property="ifRing"/>
+        <result column="line_color" jdbcType="VARCHAR" property="lineColor"/>
+        <result column="line_status" jdbcType="VARCHAR" property="lineStatus"/>
         <result column="" jdbcType="INTEGER" property="num"/>
         <association property="city" javaType="com.gzmu.lpzyf.bean.City">
             <id column="id" jdbcType="INTEGER" property="id"/>
-            <result column="name_cn" jdbcType="VARCHAR" property="name_cn"/>
-            <result column="name_en" jdbcType="VARCHAR" property="name_en"/>
+            <result column="name_cn" jdbcType="VARCHAR" property="nameCn"/>
+            <result column="name_en" jdbcType="VARCHAR" property="nameEn"/>
         </association>
     </resultMap>
     <insert id="insert">
-        insert into metro_line values(#{id},#{metroName},#{metroNameAll},#{lineStatus},#{city.id})
-         on duplicate key update metro_name=#{metroName},metro_name_all=#{metroNameAll},line_status=#{lineStatus},city_id=#{city.id}
+        insert into metro_line values(#{id},#{metroName},#{metroNameAll},#{city.id},#{ifRing},#{lineColor},#{lineStatus})
+         on duplicate key update metro_name=#{metroName},metro_name_all=#{metroNameAll},line_status=#{lineStatus},city_id=#{city.id},
+             if_ring=#{ifRing},line_color=#{lineColor}
     </insert>
+    <!--    查询城市的线路详情-->
+    <select id="findByCity" resultType="MetroLine">
+        select * from metro_line where city_id=#{cityId}
+    </select>
     <!--查询每个城市的地铁线路数-->
     <select id="findCount" resultType="MetroLine">
         select city_id ,COUNT(ml.city_id)as num from metro_line ml

@@ -4,9 +4,10 @@
 <mapper namespace="com.gzmu.lpzyf.mapper.MetroStationMapper">
     <insert id="insert">
         insert ignore into metro_station
-        values(#{id},#{name},#{nameEn},#{longitude},#{latitude},#{stationStatus})
+        values(#{id},#{name},#{nameEn},#{longitude},#{latitude},#{coordinateX},#{coordinateY},#{ifTransfer},#{stationStatus})
         on duplicate key update name=#{name},name_en=#{nameEn},longitude=#{longitude}
-          ,latitude=#{latitude},station_status=#{stationStatus}
+          ,latitude=#{latitude},station_status=#{stationStatus},coordinate_x=#{coordinateX},coordinate_y=#{coordinateY},
+            if_transfer=#{ifTransfer}
     </insert>
 
 </mapper>

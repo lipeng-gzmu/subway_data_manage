@@ -10,7 +10,6 @@ public interface CityMapper {
     //查询所有的城市
     List<City> findAll();
 
-
     void insert(City city);
 
     //根据Id查询

@@ -38,7 +38,13 @@
         <div class="collect_message">
             <span>采集信息展示：</span>
             <div class="message_show" >
+                <div class='mapView' data-columns='200' data-rows='200' data-cellsize='20'
+                     data-legendId='legend' data-textClass='text'
+                     data-gridnumbers='true' data-grid='true' data-lineWidth='8'>
 
+
+                </div>
+                <div id='legend'></div>
             </div>
         </div>
     </div>
@@ -56,7 +62,7 @@
             success:function (result){
                 var html="";
                 for(var i=0;i<result.length;i++){
-                    html+="<option value='"+result[i].id+"'>"+result[i].name_cn+"</option>"
+                    html+="<option value='"+result[i].id+"'>"+result[i].nameCn+"</option>"
                 }
                 $("#city").html(html);
             }

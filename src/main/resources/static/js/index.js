@@ -7,7 +7,7 @@ $(function () {
             var city_name = new Array(10);
             var num = new Array(10);
             for(var i=0;i<10;i++){
-                city_name[i] = result[i].city.name_cn;
+                city_name[i] = result[i].city.nameCn;
                 num[i] = result[i].num;
 
             }

@@ -20,7 +20,8 @@ public class TestSm {
     }
     @Test
     public void testFile(){
-
+        float i=10;
+        System.out.println(i/3);
     }
 
 
