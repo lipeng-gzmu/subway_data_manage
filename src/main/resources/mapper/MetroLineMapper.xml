@@ -37,4 +37,7 @@
         group by ml.city_id
         order by COUNT(ml.city_id) DESC
     </select>
+    <select id="findAll" resultType="MetroLine">
+        select * from metro_line
+    </select>
 </mapper>

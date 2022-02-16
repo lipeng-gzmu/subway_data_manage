@@ -9,6 +9,9 @@
     left join metro_station ms on ls.station_id=ms.id
     where ls.line_id=#{lineId} order by ls.order_num ASC
 </select>
+<select id="findAll" resultType="Line_Station">
+    select * from line_station
+</select>
 <insert id="insert">
     insert ignore into line_station values(#{id},#{lineId},#{stationId},#{orderNum})
     on duplicate key update line_id=#{lineId},station_id=#{stationId},order_num=IF(NULL,#{orderNum},VALUES(order_num))

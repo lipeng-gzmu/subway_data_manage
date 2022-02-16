@@ -8,6 +8,8 @@ import java.util.List;
 
 @Repository
 public interface MetroLineMapper {
+    //查询全部
+    List<MetroLine> findAll();
     void insert(MetroLine metroLine);
     //查询某个城市的线路信息
     List<MetroLine> findByCity(String cityId);

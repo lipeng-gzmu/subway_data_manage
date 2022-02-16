@@ -67,8 +67,73 @@ $(function (){
                 html+=subwayMap;
             }
             $(".mapView").html(html);
-            $(".mapView").subwayMap({debug:true});
+            $(".mapView").subwayMap({debug:false});
         }
     })
 
 })
+//使用鼠标拖动代替滚动条
+$(document).ready(function (){
+    //鼠标移动操作
+    var drag = function drag(){
+        this.dragWrap = $(".collect_message");
+        this.init.apply(this,arguments);
+    };
+    drag.prototype = {
+        constructor:drag,
+        _dom : {},
+        _x : 0,
+        _y : 0,
+        _top :0,
+        _left: 0,
+        move : false,
+        down : false,
+        init : function () {
+            this.bindEvent();
+        },
+        bindEvent : function () {
+            var t = this;
+            $('body').on('mousedown','.collect_message',function(e){
+                e && e.preventDefault();
+                if ( !t.move) {
+                    t.mouseDown(e);
+                }
+            });
+            $('body').on('mouseup','.collect_message',function(e){
+                t.mouseUp(e);
+            });
+
+            $('body').on('mousemove','.collect_message',function(e){
+                if (t.down) {
+                    t.mouseMove(e);
+                }
+            });
+        },
+        mouseMove : function (e) {
+            e && e.preventDefault();
+            this.move = true;
+            var x = this._x - e.clientX,
+                y = this._y - e.clientY,
+                dom = $('.collect_message');
+            dom.scrollLeft(this._left + x);
+            dom.scrollTop(this._top + y);
+        },
+        mouseUp : function (e) {
+            e && e.preventDefault();
+            this.move = false;
+            this.down = false;
+            this.dragWrap.css('cursor','');
+        },
+        mouseDown : function (e) {
+            this.move = false;
+            this.down = true;
+            this._x = e.clientX;
+            this._y = e.clientY;
+            this._top = $('.collect_message').scrollTop();
+            this._left = $('.collect_message').scrollLeft();
+            this.dragWrap.css('cursor','move');
+        }
+    };
+    var drag = new drag();
+
+});

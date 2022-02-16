@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface Line_StationMapper {
+    List<Line_Station> findAll();
     void insert(Line_Station line_station);
     List<MetroStation> findByLineId(String lineId);
 }
