@@ -13,7 +13,7 @@
     <script src="js/jquery-2.2.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.subwayMap-0.5.3.js" type="text/javascript"></script>
 
-    
+
 </head>
 <body>
 
@@ -28,19 +28,18 @@
             <span>城市：</span>
             <select id="city">
             </select>
-            <input type="submit" value="开始采集">
+            <input type="button" class="submitCity" value="开始采集">
 
         </div>
-        <div class="collect_message">
-            <span>采集信息展示：</span>
+        <div class="collect_message"><!--
+            <span>采集信息展示：</span>-->
             <div class="message_show" >
-                <div class='mapView' data-columns='200' data-rows='200' data-cellsize='20'
-                     data-legendId='legend' data-textClass='text'
-                     data-gridnumbers='true' data-grid='true' data-lineWidth='8'>
-
+                <div class='mapView' data-columns='200' data-rows='200' data-cellsize='15'
+                     data-legendId='legend' data-textClass='button'
+                     data-gridnumbers='false' data-grid='false' data-lineWidth='8'>
 
                 </div>
-                <div id='legend'></div>
+                <div id='legend' style="width: 200px;"></div>
             </div>
         </div>
     </div>
