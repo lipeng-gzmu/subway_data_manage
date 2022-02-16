@@ -222,10 +222,10 @@ $(function () {
                 seriesIndex: [0],
                 type:'piecewise',
                 pieces:[
-                    {min:21, color: '#FF4949'},
-                    {min:15, max:20, color: '#FFA74D'},
-                    {min:9, max:14, color: '#FFEA51'},
-                    {min:4, max:8, color:  '#4E82FF'},
+                    {min:20, color: '#FF4949'},
+                    {min:14, max:20, color: '#FFA74D'},
+                    {min:8, max:14, color: '#FFEA51'},
+                    {min:3, max:8, color:  '#4E82FF'},
                     {min:0, max:3, color: '#44AFF0'},
                 ],
                 textStyle: {
@@ -251,7 +251,7 @@ $(function () {
                         borderColor: '#666666',
                     },
                     emphasis: {
-                        areaColor: '#0099CC',
+                        areaColor: '#FEC888',
                     }
                 }
             },

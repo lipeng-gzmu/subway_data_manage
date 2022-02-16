@@ -59,6 +59,7 @@ input, button {
 	padding-bottom:5px;
 	margin:0 15px 10px 0;
 	display:inline-block;
+	color: #1161ee;
 	border-bottom:2px solid transparent;
 }
 .login-html .sign-in:checked + .tab,
