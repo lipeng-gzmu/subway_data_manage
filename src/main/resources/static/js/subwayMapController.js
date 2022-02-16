@@ -16,7 +16,12 @@ $(".submitCity").click(function (){
                 var subwayMap = "<ul data-color=\"#"+line.lineColor+"\" data-label=\""+line.metroName+"\">";
                 for(var j=0;j<stations.length;j++){
                     var xy = stations[j].coordinateX+","+stations[j].coordinateY;
-                    subwayMap +="<li data-coords=\""+xy+"\">"+stations[j].name+"</li>"
+                    if(stations[j].ifTransfer==1){
+                        subwayMap +="<li data-coords=\""+xy+"\" data-marker=\"interchange\">"+stations[j].name+"</li>"
+                    }else{
+                        subwayMap +="<li data-coords=\""+xy+"\">"+stations[j].name+"</li>"
+                    }
+
                 }
                 if(line.ifRing=="1"){
                     var xy = stations[0].coordinateX+","+stations[0].coordinateY;
@@ -48,7 +53,11 @@ $(function (){
                 var subwayMap = "<ul data-color=\"#"+line.lineColor+"\" data-label=\""+line.metroName+"\">";
                 for(var j=0;j<stations.length;j++){
                     var xy = stations[j].coordinateX+","+stations[j].coordinateY;
-                    subwayMap +="<li data-coords=\""+xy+"\">"+stations[j].name+"</li>"
+                    if(stations[j].ifTransfer==1){
+                        subwayMap +="<li data-coords=\""+xy+"\" data-marker=\"interchange\">"+stations[j].name+"</li>"
+                    }else{
+                        subwayMap +="<li data-coords=\""+xy+"\">"+stations[j].name+"</li>"
+                    }
                 }
                 if(line.ifRing=="1"){
                     var xy = stations[0].coordinateX+","+stations[0].coordinateY;
