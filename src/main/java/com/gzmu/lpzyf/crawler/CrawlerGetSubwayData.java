@@ -73,7 +73,7 @@ public class CrawlerGetSubwayData {
                             metroStation.setIfTransfer(Integer.valueOf(station.getT()));
                             metroStation.setStationStatus(Integer.valueOf(station.getSu()));
                             metroStations.add(metroStation);
-                            String[] lineIds = station.getR().split("\\|");
+                           /* String[] lineIds = station.getR().split("\\|");
                             for(int i=0;i<lineIds.length;i++){
                                 Line_Station line_station = new Line_Station();
                                 line_station.setLineId(lineIds[i]);
@@ -84,7 +84,14 @@ public class CrawlerGetSubwayData {
                                     line_station.setOrderNum(orderNum);
                                     line_stations.add(line_station);
                                 }
-                            }
+                            }*/
+                            Line_Station line_station = new Line_Station();
+                            line_station.setLineId(line.getLs());
+                            line_station.setStationId(station.getSid());
+                            String id = DigestUtils.md5DigestAsHex((line.getLs()+station.getSid()).getBytes());
+                            line_station.setId(id);
+                            line_station.setOrderNum(orderNum);
+                            line_stations.add(line_station);
                             orderNum++;
                         }
                         orderNum=1;

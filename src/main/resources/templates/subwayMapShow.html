@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>数据采集</title>
+    <title>地铁网图</title>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/index.css">
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/SpeedOfProgress.css">
     <script src="js/jquery-2.2.1.min.js" type="text/javascript"></script>
     <script src="js/jquery.subwayMap-0.5.3.js" type="text/javascript"></script>
+    <script src="js/jquery.mousewheel.min.js"></script>
 
 
 </head>
@@ -27,16 +28,15 @@
         <div class="input_message">
             <span>城市：</span>
             <select id="city">
-            </select>
-            <input type="button" class="submitCity" value="开始采集">
-
+            </select><!--
+            <input type="button" class="submitCity" value="开始采集">-->
         </div>
         <div class="collect_message"><!--
             <span>采集信息展示：</span>-->
             <div class="message_show" >
                 <div class='mapView' data-columns='210' data-rows='210' data-cellsize='15'
                      data-legendId='legend' data-textClass='button'
-                     data-gridnumbers='false' data-grid='false' data-lineWidth='8'>
+                     data-gridnumbers='false' data-grid='false' data-lineWidth='6'>
 
                 </div>
                 <div id='legend' style="width: 200px;"></div>
@@ -62,6 +62,12 @@
                 $("#city").html(html);
             }
         })
+    })
+    $(".mapView").mousewheel(function (event,delta){
+        //alert($(".mapView").attr("data-cellsize"))
+        //$(".mapView").attr("data-cellsize","15")
+       // alert($(".mapView").attr("data-cellsize"))
+        //$(".mapView").subwayMap({debug:false})
     })
 </script>
 </body>

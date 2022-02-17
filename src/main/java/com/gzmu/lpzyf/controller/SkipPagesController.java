@@ -17,7 +17,7 @@ public class SkipPagesController {
     //数据采集
     @RequestMapping("/getData")
     public String skipData(){
-        return "SpeedOfProgress";
+        return "subwayMapShow";
     }
 
     //地铁网图

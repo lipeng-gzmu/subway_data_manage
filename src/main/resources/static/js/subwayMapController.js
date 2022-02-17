@@ -1,6 +1,6 @@
 
 var cityId ="";
-$(".submitCity").click(function (){
+$("#city").change(function (){
     cityId = $("#city option:selected").val()
     $("#legend").html("")
     $.ajax({
@@ -8,30 +8,9 @@ $(".submitCity").click(function (){
         method:"post",
         data:{"cityId":cityId},
         success:function (result){
-            var html ="";
-            for(var i=0;i<result.length;i++){
-                var line = result[i].line;
-                if(line.lineStatus!=1)continue;
-                var stations = result[i].stations;
-                var subwayMap = "<ul data-color=\"#"+line.lineColor+"\" data-label=\""+line.metroName+"\">";
-                for(var j=0;j<stations.length;j++){
-                    var xy = stations[j].coordinateX+","+stations[j].coordinateY;
-                    if(stations[j].ifTransfer==1){
-                        subwayMap +="<li data-coords=\""+xy+"\" data-marker=\"interchange\">"+stations[j].name+"</li>"
-                    }else{
-                        subwayMap +="<li data-coords=\""+xy+"\">"+stations[j].name+"</li>"
-                    }
-
-                }
-                if(line.ifRing=="1"){
-                    var xy = stations[0].coordinateX+","+stations[0].coordinateY;
-                    subwayMap +="<li data-coords=\""+xy+"\">"+stations[0].name+"</li>"
-                }
-                subwayMap +="</ul>"
-                html+=subwayMap;
-            }
+            var html = loaddingMap(result);
             $(".mapView").html(html);
-            $(".mapView").subwayMap({debug:true});
+            $(".mapView").subwayMap({debug:false});
         }
     })
 })
@@ -45,33 +24,48 @@ $(function (){
         method:"post",
         data:{"cityId":cityId},
         success:function (result){
-            var html ="";
-            for(var i=0;i<result.length;i++){
-                var line = result[i].line;
-                if(line.lineStatus!=1)continue;
-                var stations = result[i].stations;
-                var subwayMap = "<ul data-color=\"#"+line.lineColor+"\" data-label=\""+line.metroName+"\">";
-                for(var j=0;j<stations.length;j++){
-                    var xy = stations[j].coordinateX+","+stations[j].coordinateY;
-                    if(stations[j].ifTransfer==1){
-                        subwayMap +="<li data-coords=\""+xy+"\" data-marker=\"interchange\">"+stations[j].name+"</li>"
-                    }else{
-                        subwayMap +="<li data-coords=\""+xy+"\">"+stations[j].name+"</li>"
-                    }
-                }
-                if(line.ifRing=="1"){
-                    var xy = stations[0].coordinateX+","+stations[0].coordinateY;
-                    subwayMap +="<li data-coords=\""+xy+"\">"+stations[0].name+"</li>"
-                }
-                subwayMap +="</ul>"
-                html+=subwayMap;
-            }
+           var html = loaddingMap(result);
             $(".mapView").html(html);
             $(".mapView").subwayMap({debug:false});
         }
     })
 
 })
+//加载路线图
+function loaddingMap(result){
+    var html ="";
+    for(var i=0;i<result.length;i++){
+        var line = result[i].line;
+        //将没在运营的站点排出
+        if(line.lineStatus!=1)continue;
+        var stations = result[i].stations;
+        var subwayMap = "<ul data-color=\"#"+line.lineColor+"\" data-label=\""+line.metroName+"\">";
+        for(var j=0;j<stations.length;j++){
+            //var xy = stations[j].coordinateX+","+stations[j].coordinateY;
+            var x = stations[j].coordinateX<=0.5?0.5:(stations[j].coordinateX>=199.5?199.5:stations[j].coordinateX);
+            var y = stations[j].coordinateY<=0.5?0.5:(stations[j].coordinateY>=199.5?199.5:stations[j].coordinateY);
+            var xy = x+","+y;
+            //如果线路状态不为1则将图画出来
+            if(stations[j].stationStatus!=1){
+                //alert("站点建设中:"+stations[j].name);
+                continue;
+            };
+            if(stations[j].ifTransfer==1){
+                subwayMap +="<li data-coords=\""+xy+"\" data-marker=\"interchange\">"+stations[j].name+"</li>"
+            }else{
+                subwayMap +="<li data-coords=\""+xy+"\">"+stations[j].name+"</li>"
+            }
+
+        }
+        if(line.ifRing=="1"){
+            var xy = stations[0].coordinateX+","+stations[0].coordinateY;
+            subwayMap +="<li data-coords=\""+xy+"\">"+stations[0].name+"</li>"
+        }
+        subwayMap +="</ul>"
+        html+=subwayMap;
+    }
+    return html;
+}
 //使用鼠标拖动代替滚动条
 $(document).ready(function (){
     //鼠标移动操作
