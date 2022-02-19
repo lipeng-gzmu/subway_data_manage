@@ -3,6 +3,17 @@
     height: 5%;
     color: white;
 }
+.data_main .lines span{
+    float: left;
+    color: white;
+    font-size: 11px;
+    margin-left: 10px;
+    cursor: pointer;
+
+}
+.lines span:hover{
+    color: blue;
+}
 .data_main .input_message span{
     position: relative;
     top: 15%;

@@ -37,6 +37,10 @@ public class LoginController {
     private RedisTemplate redisTemplate;
     @RequestMapping("/login")
     public String skipLogin(Admin admin, RedirectAttributesModelMap modelMap, Model model, HttpServletRequest request,HttpServletResponse response){
+        String userAgent = request.getHeader("User-Agent");
+        if(userAgent.contains("Android")||userAgent.contains("Mobile")){
+            return "exception";
+        }
         String remoteAddr = request.getRemoteAddr();
         String remoteUser = request.getRemoteUser();
         String remoteHost = request.getRemoteHost();

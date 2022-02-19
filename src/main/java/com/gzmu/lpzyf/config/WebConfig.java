@@ -5,6 +5,8 @@ package com.gzmu.lpzyf.config;
         import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
         import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+        import javax.servlet.http.HttpServletRequest;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     @Override
